@@ -67,6 +67,7 @@ const LoginInput = styled.input`
     border: 1px solid #ddd;
     outline: none;
     padding-left: 10px;
+    font-size: 16px;
 `;
 
 const SubmitBtn = styled.input`
