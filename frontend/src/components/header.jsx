@@ -5,7 +5,6 @@ import LogoImg from "../assets/images/logo/logo.png";
 import { GoSearch } from "react-icons/go";
 
 const containerSize = 1400;
-const mainColor = '#fb8500';
 
 const MainHeader = styled.header`
     width: 100%;
@@ -57,19 +56,6 @@ const Gnb = styled.li`
     align-content: center;
     position: relative;
 
-    &::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 0px;
-        border-radius: 2px;
-        bottom: 0;
-        left: 0;
-        background: #111;
-        display: ${(props) => props.$active ? 'none' : 'block'};
-        transition: .3s;
-    }
-
     a {
         color: ${(props) => props.$active ? "111" : "#ddd"};
         text-decoration: none;
@@ -77,11 +63,6 @@ const Gnb = styled.li`
         &:hover {
             color: #111;
         }
-    }
-
-    &:hover::before {
-        height: 4px;
-        transition: .3s;
     }
 `;
 
@@ -120,7 +101,6 @@ const SearchBtn = styled.div`
     color: ${props => props.$hasValue ? '#111' : '#ddd'};
 `;
 
-// ✅ 컴포넌트 본문
 const Header = () => {
     const location = useLocation();
     const currentPath = location.pathname;
@@ -135,7 +115,7 @@ const Header = () => {
                 <Nav>
                     <GnbContainer>
                         <Gnb $active={currentPath === "/"}>
-                            <Link to="/">홈으로</Link>
+                            <Link to="/">홈</Link>
                         </Gnb>
                         <Gnb $active={currentPath === "/post"}>
                             <Link to="/post">글쓰기</Link>
