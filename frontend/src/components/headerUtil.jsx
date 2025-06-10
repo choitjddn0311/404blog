@@ -203,7 +203,8 @@ const SignUpPwInputContainer = styled.div`
 const HeaderUtil = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("login");
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState("");
   // 회원가입 상태 관리
   const [signUpData, setSignUpData] = useState({
     id: "",
@@ -244,6 +245,8 @@ const HeaderUtil = () => {
       const data = await res.json();
       if (data.success) {
         alert("✅ 로그인 성공: " + data.message);
+        setIsLoggedIn(true);
+        setUserId(id);
         closeModal();
       } else {
         alert("❌ 로그인 실패: " + data.message);
@@ -251,6 +254,12 @@ const HeaderUtil = () => {
     } catch (err) {
       alert("🚨 서버 에러: " + err.message);
     }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserId('');
+    alert("로그아웃 되었습니다.");
   };
 
   const handleCheckDuplicate = async (e) => {
@@ -316,8 +325,17 @@ const HeaderUtil = () => {
       <MainUtil>
         <UtilContainer>
           <UtilInner>
-            <Util onClick={() => openModal("login")}>로그인</Util>
-            <Util onClick={() => openModal("signup")}>회원가입</Util>
+            {isLoggedIn ? (
+              <>
+                <Util>{userId}님</Util>
+                <Util onClick={handleLogout}>로그아웃</Util>
+              </>
+            ) : (
+              <>
+                <Util onClick={() => openModal("login")}>로그인</Util>
+                <Util onClick={() => openModal("signup")}>회원가입</Util>
+              </>
+            )}
           </UtilInner>
         </UtilContainer>
       </MainUtil>
@@ -328,8 +346,8 @@ const HeaderUtil = () => {
         {modalType === "login" ? (
           <LoginForm onSubmit={handleLoginSubmit}>
             <LoginInputContainer>
-              <LoginInput type="text" name="id" placeholder="아이디를 입력해주세요." />
-              <LoginInput type="password" name="pw" placeholder="비밀번호를 입력해주세요." />
+              <LoginInput type="text" name="id" placeholder="아이디를 입력해주세요." style={{borderTopLeftRadius: '5px', borderTopRightRadius: '5px'}} />
+              <LoginInput type="password" name="pw" placeholder="비밀번호를 입력해주세요." style={{borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', borderTop: 'none'}} />
             </LoginInputContainer>
             <SubmitBtn type="submit" value="로그인" />
           </LoginForm>
@@ -382,6 +400,7 @@ const HeaderUtil = () => {
                     value={signUpData.pw}
                     onChange={handleChange}
                     placeholder="비밀번호를 입력해주세요."
+                    style={{borderTopLeftRadius: '5px', borderTopRightRadius: '5px'}}
                   />
                   <input
                     type="password"
@@ -389,6 +408,7 @@ const HeaderUtil = () => {
                     value={signUpData.pw2}
                     onChange={handleChange}
                     placeholder="다시한번 입력해주세요."
+                    style={{borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', borderTop: 'none'}}
                   />
                 </SignUpPwInputContainer>
               </SignUpPwContainer>
