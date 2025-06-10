@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import HeaderUtil from "./components/headerUtil";
 import Header from "./components/header";  
 import Home from "./page/home";
 import Post from "./page/post";
+import Intro from "./page/intro";
 import GlobalStyle from "./style/globalStyle";
 
 const App = () => {
@@ -10,11 +12,12 @@ const App = () => {
     <>
     <GlobalStyle/>
     <BrowserRouter>
+      <HeaderUtil/>
       <Header/>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/post" element={<Post />}></Route>
-          <Route></Route>
+          <Route path="/intro" element={<Intro />}></Route>
         </Routes>
     </BrowserRouter>
     </>
