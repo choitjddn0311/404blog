@@ -13,7 +13,7 @@ app.use(express.json());
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
-  res.send('Blog Backend API');
+  res.send('비정상적인 접근입니다.');
 });
 
 const PORT = process.env.PORT || 5000;
