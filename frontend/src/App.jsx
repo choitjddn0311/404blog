@@ -6,6 +6,7 @@ import Home from "./page/home";
 import Post from "./page/post";
 import Intro from "./page/intro";
 import Mypage from "./page/myPage";
+import Footer from "./components/footer";
 import GlobalStyle from "./style/globalStyle";
 import PermitRoute from "./page/permit";
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/intro" element={<Intro />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
         </Routes>
+        <Footer/>
     </BrowserRouter>
     </>
   )
