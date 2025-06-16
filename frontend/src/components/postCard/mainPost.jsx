@@ -43,6 +43,8 @@ const CardWriter = styled.div`
         height: 35px;
         border-radius: 50%;
         background: #fff;
+        text-align: center;
+        align-content: center;
     }
     & > p > span {
         font-weight: bold;
@@ -55,7 +57,7 @@ const PostCard = ({title, post_text, id}) => {
             <Card>
                 <CardImg>카드 이미지 영역입니다</CardImg>
                 <CardWriter>
-                    <div></div>
+                    <div>프사</div>
                     <p><span>{id}</span> 님이 작성한 포스트</p>
                 </CardWriter>
                 <CardTextContainer>
