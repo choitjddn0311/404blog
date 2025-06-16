@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Modal from "./modal"; // 모달 컴포넌트
+import UserAlert from "./alert/userAlert";
 
 const containerSize = 1400;
 const mainColor = '#fb8500';
@@ -102,7 +103,6 @@ const SignUpForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
 `;
 
 const SignUpInputArea = styled.div`
@@ -198,13 +198,20 @@ const SignUpPwInputContainer = styled.div`
         padding-left: 10px;
         outline: none;
     }
-`
+`;
 
 const HeaderUtil = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("login");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+
+  const showCustomAlert = (msg) => {
+    setAlertMessage(msg);
+    setShowAlert(true);
+  }
   // 회원가입 상태 관리
   const [signUpData, setSignUpData] = useState({
     id: "",
@@ -212,6 +219,15 @@ const HeaderUtil = () => {
     pw: "",
     pw2: "",
   });
+
+  useEffect(() => {
+  const storageLogin = localStorage.getItem("isLoggedIn");
+  const storageId = localStorage.getItem("userId");
+  if(storageLogin === "true" && storageId) {
+    setIsLoggedIn(true);
+    setUserId(storageId);
+  }
+}, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -244,28 +260,34 @@ const HeaderUtil = () => {
 
       const data = await res.json();
       if (data.success) {
-        alert("✅ 로그인 성공: " + data.message);
+        showCustomAlert(data.message);
         setIsLoggedIn(true);
         setUserId(id);
+
+        localStorage.setItem("isLoggedIn" , "true");
+        localStorage.setItem("userId" , id);
         closeModal();
       } else {
-        alert("❌ 로그인 실패: " + data.message);
+        showCustomAlert(data.message);
       }
     } catch (err) {
-      alert("🚨 서버 에러: " + err.message);
+      showCustomAlert("서버 에러: " + err.message);
     }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserId('');
-    alert("로그아웃 되었습니다.");
+
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userId");
+    showCustomAlert("로그아웃 되었습니다.");
   };
 
   const handleCheckDuplicate = async (e) => {
     e.preventDefault();
     if (!signUpData.id) {
-      alert("아이디를 입력해주세요.");
+      showCustomAlert("아이디를 입력해주세요.");
       return;
     }
 
@@ -275,13 +297,13 @@ const HeaderUtil = () => {
       });
 
       if (res.data.available) {
-        alert("✅ 사용 가능한 아이디입니다.");
+        showCustomAlert("사용 가능한 아이디입니다.");
       } else {
-        alert("❌ 이미 사용 중인 아이디입니다.");
+        showCustomAlert("이미 사용 중인 아이디입니다.");
       }
     } catch (err) {
       console.error(err);
-      alert("🚨 서버 에러: 아이디 중복확인 실패");
+      showCustomAlert("아이디 중복 확인 실패. 관리자에게 문의해주세요.");
     }
   };
 
@@ -291,12 +313,12 @@ const HeaderUtil = () => {
     const { id, name, pw, pw2 } = signUpData;
 
     if (!id || !name || !pw || !pw2) {
-      alert("모든 필드를 입력해주세요.");
+      showCustomAlert("모든 필드를 입력해주세요.");
       return;
     }
 
     if (pw !== pw2) {
-      alert("비밀번호가 일치하지 않습니다.");
+      showCustomAlert("비밀번호가 일치하지 않습니다.");
       return;
     }
 
@@ -308,26 +330,29 @@ const HeaderUtil = () => {
       });
 
       if (res.data.success) {
-        alert("🎉 회원가입 성공!");
+        showCustomAlert("회원가입 되었습니다");
         closeModal();
         setSignUpData({ id: "", name: "", pw: "", pw2: "" });
       } else {
-        alert("❌ 회원가입 실패: " + res.data.message);
+        showCustomAlert("회원가입 실패: " + res.data.message);
       }
     } catch (err) {
       console.error(err);
-      alert("🚨 서버 에러: 회원가입 실패");
+      showCustomAlert("회원가입 실패. 관리자에게 문의해주세요.");
     }
   };
 
   return (
     <>
+    {showAlert && (
+      <UserAlert message={alertMessage} onClose={() => setShowAlert(false)} />
+    )}
       <MainUtil>
         <UtilContainer>
           <UtilInner>
             {isLoggedIn ? (
               <>
-                <Util>{userId}님</Util>
+                <Util>{userId} 님</Util>
                 <Util onClick={handleLogout}>로그아웃</Util>
               </>
             ) : (
@@ -349,6 +374,15 @@ const HeaderUtil = () => {
               <LoginInput type="text" name="id" placeholder="아이디를 입력해주세요." style={{borderTopLeftRadius: '5px', borderTopRightRadius: '5px'}} />
               <LoginInput type="password" name="pw" placeholder="비밀번호를 입력해주세요." style={{borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', borderTop: 'none'}} />
             </LoginInputContainer>
+            <p>아직 회원이 아니신가요? 
+              &nbsp;
+              <span
+                style={{color: mainColor, cursor: 'pointer'}}
+                onClick={() => openModal('signup')}
+              >
+              회원가입
+              </span>
+            </p>
             <SubmitBtn type="submit" value="로그인" />
           </LoginForm>
         ) : (
@@ -413,6 +447,15 @@ const HeaderUtil = () => {
                 </SignUpPwInputContainer>
               </SignUpPwContainer>
             </SignUpInputArea>
+            <p>이미 회원이신가요?
+              &nbsp;
+              <span
+                style={{color: mainColor, cursor: 'pointer'}}
+                onClick={() => openModal('login')}
+              >
+              로그인
+              </span>
+            </p>
             <SubmitBtn type="submit" value="회원가입" />
           </SignUpForm>
         )}
