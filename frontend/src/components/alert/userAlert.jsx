@@ -8,14 +8,15 @@ const AlertDisplay = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 250px;
-  height: 80px;
+  height: 60px;
   padding: 16px 24px;
   background-color: #fff;
   color: #333;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
   border-radius: 8px;
   font-size: 16px;
   z-index: 1000;
+  align-content: center;
   animation: fadeInOut 3s ease forwards;
 
   @keyframes fadeInOut {
