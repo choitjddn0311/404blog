@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import Modal from "./modal"; // 모달 컴포넌트
@@ -130,7 +131,7 @@ const SignUpIdInputContainer = styled.div`
     align-items: center;
 
     & > input[type=text] {
-        width: 75%;
+        width: 70%;
         height: 100%;
         padding-left: 10px;
         border: 1px solid #ddd;
@@ -139,8 +140,8 @@ const SignUpIdInputContainer = styled.div`
         font-size: 16px;
     }
 
-    & > input[type=submit] {
-        width: 20%;
+    & > input[type=button] {
+        width: 25%;
         height: 100%;
         background: ${mainColor};
         color: #fff;
@@ -330,7 +331,9 @@ const HeaderUtil = () => {
       });
 
       if (res.data.success) {
-        showCustomAlert("회원가입 되었습니다");
+        showCustomAlert("회원가입이 완료됐습니다.");
+        setIsLoggedIn(false);
+        setUserId();
         closeModal();
         setSignUpData({ id: "", name: "", pw: "", pw2: "" });
       } else {
@@ -352,7 +355,7 @@ const HeaderUtil = () => {
           <UtilInner>
             {isLoggedIn ? (
               <>
-                <Util>{userId} 님</Util>
+                <Util><Link to="/mypage">{userId} 님</Link></Util>
                 <Util onClick={handleLogout}>로그아웃</Util>
               </>
             ) : (
@@ -401,7 +404,7 @@ const HeaderUtil = () => {
                     placeholder="아이디를 입력해주세요."
                   />
                   <input
-                    type="submit"
+                    type="button"
                     value="중복확인"
                     onClick={handleCheckDuplicate}
                   />
