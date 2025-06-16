@@ -34,7 +34,7 @@ const ModalBox = styled.div`
     ${(props) => 
         props.$type === "login" && 
         `
-        height: 250px;
+        height: 300px;
         `
     }
 
