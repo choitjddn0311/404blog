@@ -5,6 +5,7 @@ import LogoImg from "../assets/images/logo/logo.png";
 import { GoSearch } from "react-icons/go";
 
 const containerSize = 1400;
+const mainColor = '#fb8500';
 
 const MainHeader = styled.header`
     width: 100%;
@@ -57,11 +58,11 @@ const Gnb = styled.li`
     position: relative;
 
     a {
-        color: ${(props) => props.$active ? "111" : "#ddd"};
+        color: ${(props) => props.$active ? mainColor : "#ddd"};
         text-decoration: none;
 
         &:hover {
-            color: #111;
+            color: ${mainColor};
         }
     }
 `;
