@@ -16,6 +16,7 @@ const MainHeader = styled.header`
     align-items: center;
     position: sticky;
     top: 0;
+    z-index: 3;
 `;
 
 const HeaderContainer = styled.div`
@@ -58,11 +59,11 @@ const Gnb = styled.li`
     position: relative;
 
     a {
-        color: ${(props) => props.$active ? mainColor : "#ddd"};
+        color: ${(props) => props.$active ? '#111' : "#ddd"};
         text-decoration: none;
 
         &:hover {
-            color: ${mainColor};
+            color: #111;
         }
     }
 `;
