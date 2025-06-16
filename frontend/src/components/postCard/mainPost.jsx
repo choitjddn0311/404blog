@@ -1,6 +1,8 @@
 import React, { useState , useEffect } from "react";
 import styled from "styled-components";
 
+const mainColor = '#fb8500';
+
 const Card = styled.div`
     width: 450px;
     height: 350px;
@@ -13,15 +15,16 @@ const Card = styled.div`
 const CardImg = styled.div`
     width: 100%;
     height: 200px;
-    background: #ddd;
+    background: #111;
     text-align: center;
     align-content: center;
+    color: #fff;
 `
 
 const CardTextContainer = styled.div`
     width: 100%;
     height: 100px;
-    background: #eee;
+    background: #f9f9f9;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -31,7 +34,7 @@ const CardTextContainer = styled.div`
 const CardWriter = styled.div`
     width: 100%;
     height: 50px;
-    background: #eee;
+    background: #f9f9f9;
     padding: 0 10px;
     display: flex;
     justify-content: start;
@@ -55,7 +58,7 @@ const PostCard = ({title, post_text, id}) => {
     return (
         <>
             <Card>
-                <CardImg>카드 이미지 영역입니다</CardImg>
+                <CardImg>포스트 메인 이미지 준비중입니다... 🔧</CardImg>
                 <CardWriter>
                     <div>프사</div>
                     <p><span>{id}</span> 님이 작성한 포스트</p>
