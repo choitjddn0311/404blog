@@ -15,6 +15,7 @@ const Main = styled.main`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 25px;
 `;
 
 const PostTab = styled.ul`
@@ -36,7 +37,7 @@ const PostTab = styled.ul`
     & > li > h2 {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 10px;
     }
 
     & > li:hover {
