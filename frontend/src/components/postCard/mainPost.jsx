@@ -29,6 +29,12 @@ const CardTextContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+
+    & > p {
+        height: 38px;
+        overflow: hidden;
+        word-wrap:break-word;
+    }
 `;
 
 const CardWriter = styled.div`
