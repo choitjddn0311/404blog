@@ -31,6 +31,7 @@ const PermitRoute = ({ children }) => {
       <>
         {showAlert && (
           <PageAlert message="로그인된 회원만 접근가능합니다." onClose={handleCloseAlert} />
+          
         )}
       </>
     );
