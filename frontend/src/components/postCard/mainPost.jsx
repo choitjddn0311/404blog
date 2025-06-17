@@ -23,9 +23,9 @@ const CardImg = styled.div`
 
 const CardTextContainer = styled.div`
     width: 100%;
-    height: 100px;
+    height: 80px;
     background: #f9f9f9;
-    padding: 10px;
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -52,9 +52,22 @@ const CardWriter = styled.div`
     & > p > span {
         font-weight: bold;
     }
+`;
+
+const CardDateTime = styled.div`
+    width: 100%;
+    height: 30px;
+    background: #f9f9f9;
+    padding: 0 10px;
+    align-content: center;
+
+    & > p {
+        color: #555;
+        font-size: 15px;
+    }
 `
 
-const PostCard = ({title, post_text, id}) => {
+const PostCard = ({title, post_text, id, dateTime}) => {
     return (
         <>
             <Card>
@@ -67,6 +80,9 @@ const PostCard = ({title, post_text, id}) => {
                     <h3>{title}</h3>
                     <p>{post_text}</p>
                 </CardTextContainer>
+                <CardDateTime>
+                    <p>{dateTime}</p>
+                </CardDateTime>
             </Card>
         </>
     )
