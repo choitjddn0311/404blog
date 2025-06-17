@@ -1,0 +1,14 @@
+https://velog.io/@outstandingboy/Github-블로그에-댓글-기능-추가하기-ft.-Utterances
+github 댓글 참고
+
+https://velog.io/@devjade/OAuth-authentication-구현하기github-로그인
+github OAuth 참고
+
+https://stack94.tistory.com/entry/React-%EC%B9%B4%EC%B9%B4%EC%98%A4Kakao-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%B4%EB%B3%B4%EA%B8%B0
+kakao OAuth 참고
+
+https://songsong.dev/entry/%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8-%EB%B3%B4%EC%A7%80-%EC%95%8A%EA%B8%B0-%ED%8C%9D%EC%97%85-%EB%A7%8C%EB%93%A4%EA%B8%B0
+오늘 하루동안 보지않기 참고
+
+
+
