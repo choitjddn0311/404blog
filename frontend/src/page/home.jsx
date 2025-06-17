@@ -80,7 +80,7 @@ const Home = () => {
         .catch(err => {
             console.error("글 불러오기 실패:",err);
         })
-    })
+    }, []);
     return (
         <>
             <Main>
@@ -90,16 +90,21 @@ const Home = () => {
                     <li><h2><HiOutlineDocumentDuplicate /> 내 포스트</h2></li>
                 </PostTab>
                 <Container>
-                    {posts.map((post) => (
-                        <PostCard
-                            key={post.idx}
-                            title={post.title}
-                            post_text={post.post_text}
-                            id={post.id}
-                        />
+                    {posts.map((post) => {
+                        const date = new Date(post.created_at);
+                        const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+                        return (
+                            <PostCard
+                                key={post.idx}
+                                title={post.title}
+                                post_text={post.post_text}
+                                id={post.id}
+                                dateTime={`${koreanTime.toISOString().slice(0,16).replace('T' , ' ')}`}
+                            />
+                        )
 
                         // postCard onClick -> postShow.jsx : title, content, user, created_at 보이기...
-                    ))}
+                    })}
                 </Container>
             </Main>
         </>
