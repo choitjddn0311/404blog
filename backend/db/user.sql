@@ -11,6 +11,3 @@ create table user (
     pw varchar(255) not null,
     primary key(idx, id)
 );
-
--- test data
-insert into user (id, name, pw) values ('choi', '관리자', '2222');
