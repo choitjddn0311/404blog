@@ -34,6 +34,7 @@ const LogoContainer = styled.div`
     & img {
         width: 100%;
         height: 100%;
+        filter: brightness(0);
     }
 `;
 

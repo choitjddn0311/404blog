@@ -6,7 +6,8 @@ import Modal from "./modal"; // 모달 컴포넌트
 import UserAlert from "./alert/userAlert";
 
 const containerSize = 1400;
-const mainColor = '#fb8500';
+// const mainColor = '#fb8500';
+const mainColor = '#111';
 
 const MainUtil = styled.div`
   width: 100%;
@@ -52,6 +53,10 @@ const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    & > p {
+      color: #999;
+    }
 `;
 
 const LoginInputContainer = styled.div`
@@ -84,7 +89,7 @@ const SubmitBtn = styled.input`
 
     &:hover,
     &:active {
-        background: #e67300;
+        background: #000;
         cursor: pointer;
     }
 `;
@@ -104,6 +109,10 @@ const SignUpForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    & > p {
+      color: #999;
+    }
 `;
 
 const SignUpInputArea = styled.div`
@@ -283,6 +292,9 @@ const HeaderUtil = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userId");
     showCustomAlert("로그아웃 되었습니다.");
+    setTimeout(() => {
+      window.location.reload();
+    },1500)
   };
 
   const handleCheckDuplicate = async (e) => {
@@ -380,7 +392,7 @@ const HeaderUtil = () => {
             <p>아직 회원이 아니신가요? 
               &nbsp;
               <span
-                style={{color: mainColor, cursor: 'pointer'}}
+                style={{color: mainColor, cursor: 'pointer',textDecoration: 'underline'}}
                 onClick={() => openModal('signup')}
               >
               회원가입
@@ -453,7 +465,7 @@ const HeaderUtil = () => {
             <p>이미 회원이신가요?
               &nbsp;
               <span
-                style={{color: mainColor, cursor: 'pointer'}}
+                style={{color: mainColor, cursor: 'pointer', textDecoration: 'underline'}}
                 onClick={() => openModal('login')}
               >
               로그인
