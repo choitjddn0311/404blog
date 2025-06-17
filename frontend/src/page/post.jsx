@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
+import axios from "axios";
+import {useAuth} from '../components/authContext';
+import { useNavigate } from "react-router-dom";
 
 const containerSize = 1400;
 // const mainColor = '#fb8500';
@@ -157,7 +160,36 @@ const FormSubmitBtn = styled.input`
 
 // 설정된 props는 임시저장본을 불러올때 사용됨
 // 자세히 모르겠다;;
-const Post = (title,content) => {
+const Post = () => {
+    const {user} = useAuth();
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const post_text = content.slice(0,100);
+        console.log(user);
+
+        try {
+            await axios.post('http://localhost:5000/api/upload' , {
+                id: user?.id,
+                title,
+                content,
+                post_text,
+            });
+            alert("글이 게시되었습니다.");
+        } catch(err) {
+            console.error(err);
+            alert('글 게시 실패');
+        }
+        
+        setTimeout(() => {
+            navigate('/');
+        },2000)
+    }
+
 
     // 현재 날짜 출력하기
     const today = new Date();
@@ -168,19 +200,30 @@ const Post = (title,content) => {
         <>
             <Main>
                 <Container>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <FormInner>
                             <FromTop>
                                 <FromTopLeft>
                                     <h3>{formatDate}</h3>
-                                    <TitleInput name="title" placeholder="제목을 입력해주세요." type="text"/>
+                                    <TitleInput 
+                                        name="title" 
+                                        placeholder="제목을 입력해주세요." 
+                                        type="text"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        />
                                 </FromTopLeft>
                                 <FromTopRight>
                                     <TemporailyPostBtn><h3>임시저장본 불러오기</h3></TemporailyPostBtn>
                                 </FromTopRight>
                             </FromTop>
                             <FormMain>
-                                <ContentTextArea placeholder="내용을 입력해주세요." ></ContentTextArea>
+                                <ContentTextArea 
+                                        placeholder="내용을 입력해주세요." 
+                                        value={content}
+                                        onChange={(e) => setContent(e.target.value)}
+                                    >
+                                </ContentTextArea>
                             </FormMain>
                         </FormInner>
                         <FormSubmitCon>
