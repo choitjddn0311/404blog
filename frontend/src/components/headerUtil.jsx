@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Modal from "./modal"; // 모달 컴포넌트
 import UserAlert from "./alert/userAlert";
+import { useAuth } from "./authContext";
 
 const containerSize = 1400;
 // const mainColor = '#fb8500';
@@ -218,6 +219,8 @@ const HeaderUtil = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
+  const {setUser} = useAuth();
+
   const showCustomAlert = (msg) => {
     setAlertMessage(msg);
     setShowAlert(true);
@@ -273,6 +276,7 @@ const HeaderUtil = () => {
         showCustomAlert(data.message);
         setIsLoggedIn(true);
         setUserId(id);
+        setUser({id, name: data.name})
 
         localStorage.setItem("isLoggedIn" , "true");
         localStorage.setItem("userId" , id);
