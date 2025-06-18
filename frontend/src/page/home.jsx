@@ -85,8 +85,9 @@ const Home = () => {
             <Main>
                 <PostTab>
                     <li><h2><GoDiscussionOutdated /> 최신</h2></li>
-                    <li><h2><FaUserFriends /> 친구 포스트</h2></li>
-                    <li><h2><HiOutlineDocumentDuplicate /> 내 포스트</h2></li>
+                    {/*  뜻 친구 */}
+                    <li><h2><FaUserFriends />  </h2></li>
+                    <li><h2><HiOutlineDocumentDuplicate /> 내 글</h2></li>
                 </PostTab>
                 <Container>
                     {posts.map((post) => {
