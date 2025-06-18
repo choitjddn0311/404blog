@@ -4,7 +4,6 @@ import PageAlert from "../components/alert/pageAlert";
 
 const PermitRoute = ({ children }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const location = useLocation();
   const [showAlert, setShowAlert] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 

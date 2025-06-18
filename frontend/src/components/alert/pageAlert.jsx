@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const mainColor = '#fb8500';
-
 const AlertDisplay = styled.div`
   position: fixed;
   top: 0;

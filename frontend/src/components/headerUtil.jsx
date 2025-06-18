@@ -7,7 +7,6 @@ import UserAlert from "./alert/userAlert";
 import { useAuth } from "./authContext";
 
 const containerSize = 1400;
-// const mainColor = '#fb8500';
 const mainColor = '#111';
 
 const MainUtil = styled.div`

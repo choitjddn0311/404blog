@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import {useAuth} from '../components/authContext';
 import { useNavigate } from "react-router-dom";
 
 const containerSize = 1400;
-// const mainColor = '#fb8500';
 const mainColor = '#111';
 
 const Main = styled.main`

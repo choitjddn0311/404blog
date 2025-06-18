@@ -7,7 +7,6 @@ import { FaUserFriends } from "react-icons/fa";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
 const containerSize = 1400;
-const mainColor = '#fb8500';
 
 const Main = styled.main`
     width: 100%;
