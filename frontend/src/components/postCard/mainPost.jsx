@@ -82,7 +82,7 @@ const PostCard = ({title, post_text, id, dateTime}) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/show/${title}`);
+        navigate(`/post/${title}`);
     }
     return (
         <>
