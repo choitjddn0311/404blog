@@ -172,7 +172,7 @@ const Post = () => {
         console.log(user);
 
         try {
-            await axios.post('http://localhost:5000/api/upload' , {
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/upload` , {
                 id: user?.id,
                 title,
                 content,
@@ -186,7 +186,7 @@ const Post = () => {
         
         setTimeout(() => {
             navigate('/');
-        },2000)
+        },1000)
     }
 
 
