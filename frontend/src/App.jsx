@@ -20,8 +20,8 @@ const App = () => {
       <Header/>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/post" element={<PermitRoute><Post /></PermitRoute>}></Route>
-          <Route path="/show/:title" element={<PostShow/>}></Route>
+          <Route path="/write" element={<PermitRoute><Post /></PermitRoute>}></Route>
+          <Route path="/post/:title" element={<PostShow/>}></Route>
           <Route path="/intro" element={<Intro />}></Route>
           <Route path="/mypage" element={<PermitRoute><Mypage /></PermitRoute>}></Route>
         </Routes>
