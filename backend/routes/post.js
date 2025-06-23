@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// ✅ 제목(title)으로 게시물 하나 가져오기
+// 제목으로 게시물 하나 가져오기
 router.get('/title/:title', async (req, res) => {
     const { title } = req.params;
     try {
