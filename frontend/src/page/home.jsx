@@ -78,24 +78,56 @@ const EmptyPostText = styled.div`
 `
 const Home = () => {
     const [posts, setPosts] = useState([]);
+    const [selectedTab, setSelectedTab] = useState('latest');
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("현재 로그인된 유저 정보:", user);
+    const userId = user?.id || "";
+
+    const handleTabClick = (tab) => {
+        setSelectedTab(tab);
+    }
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/posts`)
+      let url = `${process.env.REACT_APP_API_URL}/api/posts`;
+        
+      if (selectedTab === 'latest') {
+        url += "?sort=desc";
+      } else if (selectedTab === 'mine') {
+        if (userId) {
+          url += `?user=${userId}`;
+        } else {
+          setPosts([]);
+          return;
+        }
+      }
+  
+      axios.get(url)
         .then(res => {
-            setPosts(res.data);
+          console.log("응답 데이터:", res.data);
+          setPosts(res.data);
         })
         .catch(err => {
-            console.error("글 불러오기 실패:",err);
-        })
-    }, []);
+          console.error("글 불러오기 실패", err);
+        });
+    }, [selectedTab, userId]);
     return (
         <>
             <Main>
                 <PostTab>
-                    <li><h2><GoDiscussionOutdated /> 최신</h2></li>
+                    <li
+                        onClick={() => handleTabClick("latest")}
+                        style={{color: selectedTab === "latest" ? "#111" : "#ddd"}}
+                    >
+                        <h2><GoDiscussionOutdated /> 최신</h2>
+                    </li>
                     {/*  뜻 친구 */}
                     <li><h2><FaUserFriends />  사공 글</h2></li>
-                    <li><h2><HiOutlineDocumentDuplicate /> 내 글</h2></li>
+                    <li
+                        onClick={() => handleTabClick("mine")}
+                        style={{color: selectedTab === "mine" ? "#111" : "#ddd"}}
+                    >
+                        <h2><HiOutlineDocumentDuplicate /> 내 글</h2>
+                    </li>
                 </PostTab> 
                 <Container>
                     {posts.length === 0 ? (
@@ -104,17 +136,18 @@ const Home = () => {
                     </EmptyPostText>
                     ) : (
                         posts.map((post) => {
-                          const date = new Date(post.created_at);
-                          const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
-                          return (
-                            <PostCard
-                              key={post.idx}
-                              title={post.title}
-                              post_text={post.post_text}
-                              id={post.id}
-                              dateTime={`${koreanTime.toISOString().slice(0, 16).replace("T", " ")}`}
-                            />
-                            );
+                            console.log("렌더링 post:" , post)
+                            const date = new Date(post.created_at);
+                            const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+                            return (
+                              <PostCard
+                                key={post.idx}
+                                title={post.title}
+                                post_text={post.post_text}
+                                id={post.id}
+                                dateTime={`${koreanTime.toISOString().slice(0, 16).replace("T", " ")}`}
+                              />
+                              );
                         })
                     )}
 

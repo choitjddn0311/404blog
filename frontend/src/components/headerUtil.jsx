@@ -295,6 +295,7 @@ const HeaderUtil = () => {
 
         localStorage.setItem("isLoggedIn" , "true");
         localStorage.setItem("userId" , id);
+        localStorage.setItem("user" , JSON.stringify({id, name: data.name}));
         closeModal();
       } else {
         showCustomAlert(data.message);
@@ -310,6 +311,7 @@ const HeaderUtil = () => {
 
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userId");
+    localStorage.removeItem("user");
     showCustomAlert("로그아웃 되었습니다.");
     setTimeout(() => {
       window.location.reload();
