@@ -42,7 +42,8 @@ const OtherCon = styled.div`
     border-bottom: 1px solid #ddd;
 
     & > h1 {
-        font-size: 60px;
+        font-size: 55px;
+        max-height: 200px;
         width: 100%;
         align-content: start;
         padding-top: 10px;

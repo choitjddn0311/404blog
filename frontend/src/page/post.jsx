@@ -209,7 +209,16 @@ const Post = () => {
                                         placeholder="제목을 입력해주세요." 
                                         type="text"
                                         value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
+                                        onChange={(e) => {
+                                            const newTitle = e.target.value;
+                                            if(newTitle.length > 132) {
+                                                alert('제목은 최대 132글자입니다');
+                                                setTitle(newTitle.slice(0,132));
+                                                return;
+                                            } else {
+                                                setTitle(newTitle);
+                                            }
+                                        }}
                                         />
                                 </FromTopLeft>
                                 <FromTopRight>
