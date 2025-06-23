@@ -67,6 +67,14 @@ const Container = styled.div`
     justify-content: start;
     gap: 25px;
     align-items: center;
+`;
+
+const EmptyPostText = styled.div`
+    width: 100%;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 const Home = () => {
     const [posts, setPosts] = useState([]);
@@ -88,23 +96,29 @@ const Home = () => {
                     {/*  뜻 친구 */}
                     <li><h2><FaUserFriends />  사공 글</h2></li>
                     <li><h2><HiOutlineDocumentDuplicate /> 내 글</h2></li>
-                </PostTab>
+                </PostTab> 
                 <Container>
-                    {posts.map((post) => {
-                        const date = new Date(post.created_at);
-                        const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
-                        return (
+                    {posts.length === 0 ? (
+                    <EmptyPostText>
+                        <h2>올라온 포스트가 없습니다.</h2>
+                    </EmptyPostText>
+                    ) : (
+                        posts.map((post) => {
+                          const date = new Date(post.created_at);
+                          const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+                          return (
                             <PostCard
-                                key={post.idx}
-                                title={post.title}
-                                post_text={post.post_text}
-                                id={post.id}
-                                dateTime={`${koreanTime.toISOString().slice(0,16).replace('T' , ' ')}`}
+                              key={post.idx}
+                              title={post.title}
+                              post_text={post.post_text}
+                              id={post.id}
+                              dateTime={`${koreanTime.toISOString().slice(0, 16).replace("T", " ")}`}
                             />
-                        )
+                            );
+                        })
+                    )}
 
-                        // postCard onClick -> postShow.jsx : title, content, user, created_at 보이기...
-                    })}
+                        {/* // postCard onClick -> postShow.jsx : title, content, user, created_at 보이기... */}
                 </Container>
             </Main>
         </>

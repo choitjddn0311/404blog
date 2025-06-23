@@ -36,6 +36,13 @@ const CardTextContainer = styled.div`
     flex-direction: column;
     gap: 10px;
 
+    & > h3 {
+        height: 30px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     & > p {
         overflow: hidden;
         word-wrap:break-word;
