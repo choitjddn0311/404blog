@@ -386,7 +386,7 @@ const HeaderUtil = () => {
           <UtilInner>
             {isLoggedIn ? (
               <>
-                <Util><Link to="/mypage">{userId} 님</Link></Util>
+                <Util><Link to="/mypage"><span style={{fontWeight: 'bold'}}>{userId}</span> 님</Link></Util>
                 <Util onClick={handleLogout}>로그아웃</Util>
               </>
             ) : (
