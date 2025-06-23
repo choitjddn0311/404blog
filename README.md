@@ -20,7 +20,7 @@
 404 photo account: <a href="https://www.instagram.com/404.moments/">404.moments</a>
 
 ## 추후 업데이트
-미정
+> 게시물 탭메뉴, 게시물 클릭시 게시물 보기, 마이페이지 구현, 소개페이지 페이지 내에 마크다운을 구현해서 화면에 보이기
 
 ## DB Info
 > mysql

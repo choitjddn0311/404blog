@@ -7,7 +7,6 @@ import UserAlert from "./alert/userAlert";
 import { useAuth } from "./authContext";
 
 const containerSize = 1400;
-// const mainColor = '#fb8500';
 const mainColor = '#111';
 
 const MainUtil = styled.div`
@@ -76,6 +75,10 @@ const LoginInput = styled.input`
     outline: none;
     padding-left: 10px;
     font-size: 16px;
+
+    &::placeholder {
+      font-size: 13px;
+    }
 `;
 
 const SubmitBtn = styled.input`
@@ -160,6 +163,10 @@ const SignUpIdInputContainer = styled.div`
         cursor: pointer;
         outline: none;
     }
+
+    & > input::placeholder {
+      font-size: 13px;
+    }
 `;
 
 const SignUpInputContainer = styled.div`
@@ -174,6 +181,10 @@ const SignUpInputContainer = styled.div`
         border-radius: 5px;
         outline: none;
         font-size: 16px
+    }
+
+    & > input::placeholder {
+      font-size: 13px;
     }
 `;
 
@@ -208,6 +219,10 @@ const SignUpPwInputContainer = styled.div`
         font-size: 16px;
         padding-left: 10px;
         outline: none;
+    }
+
+    & > input::placeholder {
+      font-size: 13px;
     }
 `;
 
