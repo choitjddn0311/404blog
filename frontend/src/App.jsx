@@ -9,6 +9,7 @@ import Mypage from "./page/myPage";
 import Footer from "./components/footer";
 import GlobalStyle from "./style/globalStyle";
 import PermitRoute from "./page/permit";
+import PostShow from "./page/postShow";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/post" element={<PermitRoute><Post /></PermitRoute>}></Route>
+          <Route path="/show/:title" element={<PostShow/>}></Route>
           <Route path="/intro" element={<Intro />}></Route>
           <Route path="/mypage" element={<PermitRoute><Mypage /></PermitRoute>}></Route>
         </Routes>
