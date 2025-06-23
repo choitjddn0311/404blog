@@ -121,7 +121,7 @@ const Header = () => {
                             <Link to="/">홈</Link>
                         </Gnb>
                         <Gnb $active={currentPath === "/post"}>
-                            <Link to="/post">글쓰기</Link>
+                            <Link to="/write">글쓰기</Link>
                         </Gnb>
                         <Gnb $active={currentPath === "/intro"}>
                             <Link to="/intro">소개</Link>
