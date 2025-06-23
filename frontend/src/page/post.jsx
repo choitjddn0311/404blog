@@ -169,7 +169,7 @@ const Post = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const post_text = content.slice(0,100);
+        const post_text = content.slice(0,50);
         console.log(user);
 
         try {

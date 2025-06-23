@@ -122,10 +122,10 @@ const SubNav = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 5px;
-    color: #aaa;
+    color: #111;
+
 
     & > li:hover {
-        color: #111;
         cursor: pointer;
     }
 `

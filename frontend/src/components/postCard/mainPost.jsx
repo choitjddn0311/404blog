@@ -28,7 +28,7 @@ const CardTextContainer = styled.div`
     padding: 0 10px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 
     & > p {
         height: 38px;
@@ -83,7 +83,7 @@ const PostCard = ({title, post_text, id, dateTime}) => {
                     <p><span>{id}</span> 님이 작성한 포스트</p>
                 </CardWriter>
                 <CardTextContainer>
-                    <h3>{title}</h3>
+                    <h2>{title}</h2>
                     <p>{post_text}</p>
                 </CardTextContainer>
                 <CardDateTime>
