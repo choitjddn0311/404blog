@@ -278,7 +278,7 @@ const HeaderUtil = () => {
     const pw = formData.get("pw");
 
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -324,7 +324,7 @@ const HeaderUtil = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/check-id", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/check-id`, {
         id: signUpData.id,
       });
 
@@ -355,7 +355,7 @@ const HeaderUtil = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/signup", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/signup`, {
         id,
         name,
         pw,
