@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const db = require('../config/db');
 
@@ -14,8 +15,10 @@ router.post('/signup' , async (req,res) => {
             return res.status(400).json({success: false, message: '사용할 수 없는 아이디입니다.'});
         }
 
+        const hashedPw = await bcrypt.hash(pw, 10); //salt 10자리
+
         // 회원가입 insert query
-        await db.query('insert into user (id,name,pw) value(?,?,?)' , [id,name,pw]);
+        await db.query('insert into user (id,name,pw) value(?,?,?)' , [id,name,hashedPw]);
         res.json({success: true, message: '회원가입되었습니다!'});
     } catch (err) {
         console.error(err);
@@ -34,9 +37,13 @@ router.post('/login' , async(req,res) => {
         if(rows.length === 0) {
             return res.status(401).json({success: false, message: '존재하지않는 아이디입니다.'});
         }
+
+        const user = rows[0];
+
+        const pwMatch = await bcrypt.compare(pw, user.pw);
         
-        // 비밀번호 같은지 확인인
-        if(rows[0].pw !== pw) {
+        // 암호화된 비밀번호 확인
+        if(!pwMatch) {
             return res.status(401).json({success: false, message: '비밀번호가 틀렸습니다.'});
         }
 
