@@ -72,7 +72,7 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/posts")
+        axios.get(`${process.env.REACT_APP_API_URL}/api/posts`)
         .then(res => {
             setPosts(res.data);
         })
@@ -86,7 +86,7 @@ const Home = () => {
                 <PostTab>
                     <li><h2><GoDiscussionOutdated /> 최신</h2></li>
                     {/*  뜻 친구 */}
-                    <li><h2><FaUserFriends />  </h2></li>
+                    <li><h2><FaUserFriends />  사공 글</h2></li>
                     <li><h2><HiOutlineDocumentDuplicate /> 내 글</h2></li>
                 </PostTab>
                 <Container>
