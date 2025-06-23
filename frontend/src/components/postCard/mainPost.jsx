@@ -1,15 +1,21 @@
 import React, { useState , useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const mainColor = '#fb8500';
 
 const Card = styled.div`
     width: 450px;
-    height: 350px;
+    height: 370px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &:hover,
+    &:active {
+        cursor: pointer;
+    }
 `;
 
 const CardImg = styled.div`
@@ -31,7 +37,6 @@ const CardTextContainer = styled.div`
     gap: 10px;
 
     & > p {
-        height: 38px;
         overflow: hidden;
         word-wrap:break-word;
     }
@@ -74,16 +79,21 @@ const CardDateTime = styled.div`
 `
 
 const PostCard = ({title, post_text, id, dateTime}) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/show/${title}`);
+    }
     return (
         <>
-            <Card>
+            <Card onClick={handleClick}>
                 <CardImg>포스트 메인 이미지 준비중입니다... 🔧</CardImg>
                 <CardWriter>
                     <div>프사</div>
                     <p><span>{id}</span> 님이 작성한 포스트</p>
                 </CardWriter>
                 <CardTextContainer>
-                    <h2>{title}</h2>
+                    <h3>{title}</h3>
                     <p>{post_text}</p>
                 </CardTextContainer>
                 <CardDateTime>
