@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/title/:title', async (req, res) => {
     const { title } = req.params;
     try {
-        const [rows] = await db.query('SELECT * FROM post WHERE title = ?', [title]);
+        const [rows] = await db.query('select p.id, u.name, p.title, p.content, p.created_at from post p, user u where p.id = u.id  and title = ?', [title]);
 
         if (rows.length === 0) {
             return res.status(404).json({ message: '그런 제목의 게시물 없당께요~' });
