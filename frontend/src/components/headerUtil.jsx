@@ -332,11 +332,11 @@ const HeaderUtil = () => {
         showCustomAlert(data.message);
         setIsLoggedIn(true);
         setUserId(id);
-        setUser({id, name: data.name})
+        setUser({id, name: data.name, role: data.role});
 
         localStorage.setItem("isLoggedIn" , "true");
         localStorage.setItem("userId" , id);
-        localStorage.setItem("user" , JSON.stringify({id, name: data.name}));
+        localStorage.setItem("user" , JSON.stringify({id, name: data.name, role: data.role}));
         closeModal();
       } else {
         showCustomAlert(data.message);
@@ -344,6 +344,8 @@ const HeaderUtil = () => {
     } catch (err) {
       showCustomAlert("서버 에러: " + err.message);
     }
+
+    window.location.reload();
   };
 
   const handleLogout = () => {
