@@ -26,37 +26,38 @@ const PostTab = styled.ul`
     flex-direction: start;
     align-items: center;
     gap: 25px;
+`;
 
-    & > li {
-        height: 100%;
-        align-content: center;
-        position: relative;
+const TabItem = styled.li`
+    height: 100%;
+    align-content: center;
+    position: relative;
+    color: ${(props) => (props.active ? "#111" : "#ddd")};
+    cursor: pointer;
+
+    &:hover {
+      color: #111;
     }
 
-    & > li > h2 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+    & > h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    & > li:hover {
-        color: #111;
-        cursor: pointer;
+    &::before {
+      content: '';
+      width: 100%;
+      height: ${(props) => (props.active ? "3px" : "0")};
+      background: #111;
+      position: absolute;
+      bottom: 0;
+      border-radius: 3px;
+      left: 0;
     }
 
-    & > li::before {
-        content: '';
-        width: 100%;
-        height: 0;
-        background: #111;
-        position: absolute;
-        bottom: 0;
-        border-radius: 3px;
-        left: 0;
-    }
-    
-    & > li:hover::before {
-        height: 3px;
+    &:hover::before {
+      height: 3px;
     }
 `
 
@@ -114,20 +115,22 @@ const Home = () => {
         <>
             <Main>
                 <PostTab>
-                    <li
+                    <TabItem
                         onClick={() => handleTabClick("latest")}
-                        style={{color: selectedTab === "latest" ? "#111" : "#ddd"}}
+                        active={selectedTab === "latest"}
+                        // style={{color: selectedTab === "latest" ? "#111" : "#ddd"}}
                     >
                         <h2><GoDiscussionOutdated /> 최신</h2>
-                    </li>
+                    </TabItem>
                     {/*  뜻 친구 */}
-                    <li><h2><FaUserFriends />  사공 글</h2></li>
-                    <li
+                    <TabItem><h2><FaUserFriends />  사공 글</h2></TabItem>
+                    <TabItem
                         onClick={() => handleTabClick("mine")}
-                        style={{color: selectedTab === "mine" ? "#111" : "#ddd"}}
+                        active={selectedTab === "mine"}
+                        // style={{color: selectedTab === "mine" ? "#111" : "#ddd"}}
                     >
                         <h2><HiOutlineDocumentDuplicate /> 내 글</h2>
-                    </li>
+                    </TabItem>
                 </PostTab> 
                 <Container>
                     {posts.length === 0 ? (
