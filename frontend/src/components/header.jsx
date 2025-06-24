@@ -5,7 +5,6 @@ import LogoImg from "../assets/images/logo/logo.png";
 import { GoSearch } from "react-icons/go";
 
 const containerSize = 1400;
-const mainColor = '#fb8500';
 
 const MainHeader = styled.header`
     width: 100%;
@@ -109,6 +108,9 @@ const Header = () => {
     const currentPath = location.pathname;
     const [search, setSearch] = useState("");
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    const isAdmin = user?.role === "admin";
+
     return (
         <MainHeader>
             <HeaderContainer>
@@ -120,12 +122,19 @@ const Header = () => {
                         <Gnb $active={currentPath === "/"}>
                             <Link to="/">홈</Link>
                         </Gnb>
-                        <Gnb $active={currentPath === "/post"}>
+                        {/* 오류나면 여기바꿔 */}
+                        <Gnb $active={currentPath === "/write"}>
                             <Link to="/write">글쓰기</Link>
                         </Gnb>
                         <Gnb $active={currentPath === "/intro"}>
                             <Link to="/intro">소개</Link>
                         </Gnb>
+
+                        {isAdmin && (
+                            <Gnb $active={currentPath === "/admin"}>
+                                <Link to="/admin">관리자</Link>
+                            </Gnb>
+                        )}
                         {currentPath === '/' && (
                             <SearchForm $hasValue={search !== ""}>
                                 <input
