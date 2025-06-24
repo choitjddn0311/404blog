@@ -27,32 +27,33 @@ router.post('/signup' , async (req,res) => {
 });
 
 // 로그인 라우터 
-router.post('/login' , async(req,res) => {
-    // id, 비번 가져옴
-    const {id,pw} = req.body;
+router.post('/login', async (req, res) => {
+  const { id, pw } = req.body;
 
-    try {
-        // id 존재 여부체크
-        const [rows] = await db.query('select * from user where id = ?' , [id]);
-        if(rows.length === 0) {
-            return res.status(401).json({success: false, message: '존재하지않는 아이디입니다.'});
-        }
-
-        const user = rows[0];
-
-        const pwMatch = await bcrypt.compare(pw, user.pw);
-        
-        // 암호화된 비밀번호 확인
-        if(!pwMatch) {
-            return res.status(401).json({success: false, message: '비밀번호가 틀렸습니다.'});
-        }
-
-        res.json({success: true, message: '로그인되었습니다'});
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({success: false, message: '서버오류'});
+  try {
+    const [rows] = await db.query('SELECT * FROM user WHERE id = ?', [id]);
+    if (rows.length === 0) {
+      return res.status(401).json({ success: false, message: '존재하지않는 아이디입니다.' });
     }
+
+    const user = rows[0];
+
+    if (!user.pw) {
+      return res.status(500).json({ success: false, message: '비밀번호 정보가 없습니다.' });
+    }
+
+    const pwMatch = await bcrypt.compare(pw, user.pw);
+    if (!pwMatch) {
+      return res.status(401).json({ success: false, message: '비밀번호가 틀렸습니다.' });
+    }
+
+    res.json({ success: true, message: '로그인되었습니다', id: user.id, name: user.name, role: user.role });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: '서버오류' });
+  }
 });
+
 
 // id 체크 라우터
 router.post('/check-id', async (req, res) => {
