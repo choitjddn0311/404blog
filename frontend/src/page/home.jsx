@@ -80,7 +80,7 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
     const [selectedTab, setSelectedTab] = useState('latest');
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log("현재 로그인된 유저 정보:", user);
+    // console.log("현재 로그인된 유저 정보:", user);
     const userId = user?.id || "";
 
     const handleTabClick = (tab) => {
@@ -103,7 +103,7 @@ const Home = () => {
   
       axios.get(url)
         .then(res => {
-          console.log("응답 데이터:", res.data);
+        //   console.log("응답 데이터:", res.data);
           setPosts(res.data);
         })
         .catch(err => {
@@ -136,7 +136,7 @@ const Home = () => {
                     </EmptyPostText>
                     ) : (
                         posts.map((post) => {
-                            console.log("렌더링 post:" , post)
+                            // console.log("렌더링 post:" , post)
                             const date = new Date(post.created_at);
                             const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
                             return (

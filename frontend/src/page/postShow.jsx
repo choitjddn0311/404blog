@@ -170,6 +170,8 @@ const PostShow = () => {
                 <PostTitle>
                     <h1>{post.title}</h1>
                     <PostAbout>
+                        {/* 좀더 쉬운방법이 있지않을까... */}
+                        {/* 아 moment js */}
                         <p>{koreanTime.toISOString().slice(0,4)}년 {koreanTime.toISOString().slice(5,7)}월 {koreanTime.toISOString().slice(8,10)}일 {koreanTime.toISOString().slice(11,13)}시 {koreanTime.toISOString().slice(14,16)}분</p>
                         <div>
                             <div>{post.name}</div>

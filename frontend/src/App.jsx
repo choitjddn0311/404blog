@@ -11,6 +11,8 @@ import GlobalStyle from "./style/globalStyle";
 import PermitRoute from "./page/permit";
 import PostShow from "./page/postShow";
 
+
+// 프론트 라우터 설정
 const App = () => {
   return (
     <>
