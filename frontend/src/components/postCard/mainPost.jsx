@@ -1,8 +1,6 @@
-import React, { useState , useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
-const mainColor = '#fb8500';
 
 const Card = styled.div`
     width: 450px;
