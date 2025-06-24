@@ -20,13 +20,14 @@
 404 photo account: <a href="https://www.instagram.com/404.moments/">404.moments</a>
 
 ## 추후 업데이트
-> []게시물 탭메뉴(완료), 게시물 클릭시 게시물 보기, 마이페이지 구현, 소개페이지 페이지 내에 마크다운을 구현해서 화면에 보이기
-
-## DB Info
-> mysql
-
-DB_HOST=localhost <br>
-DB_USER=root <br>
-DB_PASSWORD=chltjddn0311@! <br>
-DB_NAME=blog <br>
-PORT=5000
+- [x] 게시물 탭메뉴
+- [x] 게시물 클릭시 게시물 보기
+- [x] 마이페이지 구현
+- [ ] 소개페이지 페이지 내에 마크다운을 구현해서 화면에 보이기
+- [ ] 친구 기능
+- [ ] 관리자 페이지
+- [ ] 게시물 수정, 삭제
+- [ ] 임시 게시물 저장
+- [ ] 프로필 수정
+- [ ] 개발자 소개페이지 작성
+- [ ] 댓글기능
