@@ -25,6 +25,7 @@ const ModalBox = styled.div`
     ${(props) => 
         props.$type === "signup" &&
         `
+        width: 800px;
         height: 550px;
         `
     }
