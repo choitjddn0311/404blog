@@ -121,9 +121,8 @@ const SignUpForm = styled.form`
 
 const SignUpInputArea = styled.div`
     width: 100%;
-    height: 350px;
+    height: 85%;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 `
@@ -135,6 +134,32 @@ const SignUpTitle = styled.div`
     align-content: center;
     font-weight: bold;
 `;
+
+const SignUpLeft = styled.div`
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap:  20px;
+`;
+
+const SignUpRight = styled.div`
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+
+    & > p {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      color: #999;
+    }
+`
 
 const SignUpIdInputContainer = styled.div`
     width: 100%;
@@ -190,7 +215,7 @@ const SignUpInputContainer = styled.div`
 
 const SignUpPwTitle = styled.div`
     width: 100%;
-    height: 40px;
+    height: 30px;
     text-align: start;
     align-content: center;
     font-weight: bold;
@@ -198,7 +223,7 @@ const SignUpPwTitle = styled.div`
 
 const SignUpPwContainer = styled.div`
     width: 100%;
-    height: 150px;
+    height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -226,6 +251,16 @@ const SignUpPwInputContainer = styled.div`
     }
 `;
 
+const GenderSelect = styled.select`
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding-left: 10px;
+    color: #555;
+`
+
 const HeaderUtil = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("login");
@@ -246,11 +281,17 @@ const HeaderUtil = () => {
     name: "",
     pw: "",
     pw2: "",
+    email: "",
+    birthday: "",
+    // default gender 
+    gender: "male"
   });
 
   useEffect(() => {
+    // localstorge에서 저장된 정보를 가져오고
   const storageLogin = localStorage.getItem("isLoggedIn");
   const storageId = localStorage.getItem("userId");
+  // 맞는경우 상태 저장
   if(storageLogin === "true" && storageId) {
     setIsLoggedIn(true);
     setUserId(storageId);
@@ -315,7 +356,7 @@ const HeaderUtil = () => {
     showCustomAlert("로그아웃 되었습니다.");
     setTimeout(() => {
       window.location.reload();
-    },1500)
+    },100)
   };
 
   const handleCheckDuplicate = async (e) => {
@@ -344,7 +385,7 @@ const HeaderUtil = () => {
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
 
-    const { id, name, pw, pw2 } = signUpData;
+    const { id, name, pw, pw2, email, birthday, gender } = signUpData;
 
     if (!id || !name || !pw || !pw2) {
       showCustomAlert("모든 필드를 입력해주세요.");
@@ -361,6 +402,9 @@ const HeaderUtil = () => {
         id,
         name,
         pw,
+        email,
+        birthday,
+        gender
       });
 
       if (res.data.success) {
@@ -368,7 +412,7 @@ const HeaderUtil = () => {
         setIsLoggedIn(false);
         setUserId();
         closeModal();
-        setSignUpData({ id: "", name: "", pw: "", pw2: "" });
+        setSignUpData({ id: "", name: "", pw: "", pw2: "", email: "", birthday: "", gender: "male" });
       } else {
         showCustomAlert("회원가입 실패: " + res.data.message);
       }
@@ -424,7 +468,8 @@ const HeaderUtil = () => {
         ) : (
           <SignUpForm onSubmit={handleSignUpSubmit}>
             <SignUpInputArea>
-              <SignUpContainer>
+              <SignUpLeft>
+                <SignUpContainer>
                 <SignUpTitle>
                   아이디 <sup style={{ color: "red" }}>*</sup>
                 </SignUpTitle>
@@ -482,7 +527,46 @@ const HeaderUtil = () => {
                   />
                 </SignUpPwInputContainer>
               </SignUpPwContainer>
-            </SignUpInputArea>
+              </SignUpLeft>
+
+              <SignUpRight>
+                <SignUpContainer>
+                <SignUpTitle>
+                  이메일
+                </SignUpTitle>
+                <SignUpInputContainer>
+                  <input
+                    type="email"
+                    name="email"
+                    value={signUpData.email}
+                    onChange={handleChange}
+                    placeholder="이메일을 입력해주세요."
+                  />
+                </SignUpInputContainer>
+              </SignUpContainer>
+
+              <SignUpContainer>
+                <SignUpTitle>
+                  생년월일
+                </SignUpTitle>
+                <SignUpInputContainer>
+                  <input type="date" name="birthday" value={signUpData.birthday} onChange={handleChange} />
+                </SignUpInputContainer>
+              </SignUpContainer>
+
+              <SignUpContainer>
+                <SignUpTitle>
+                  성별
+                </SignUpTitle>
+                <SignUpInputContainer>
+                    <GenderSelect name="gender" id="gender" value={signUpData.gender} onChange={handleChange}>
+                      <option value="male">남성</option>
+                      <option value="female">여성</option>
+                      <option value="other">기타</option>
+                      <option value="">밝히고싶지 않음</option>
+                    </GenderSelect>
+                  </SignUpInputContainer>
+              </SignUpContainer>
             <p>이미 회원이신가요?
               &nbsp;
               <span
@@ -492,6 +576,8 @@ const HeaderUtil = () => {
               로그인
               </span>
             </p>
+              </SignUpRight>
+            </SignUpInputArea>
             <SubmitBtn type="submit" value="회원가입" />
           </SignUpForm>
         )}
