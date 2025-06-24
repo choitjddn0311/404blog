@@ -6,7 +6,7 @@ const db = require('../config/db');
 // 회원가입 라우터
 router.post('/signup' , async (req,res) => {
     // id, name, pw 받아옴
-    const {id, name, pw} = req.body;
+    const {id, name, pw, email, birthday, gender} = req.body;
 
     try {
         // id를 select로 가져온 후 아이디 중복체크
@@ -18,7 +18,7 @@ router.post('/signup' , async (req,res) => {
         const hashedPw = await bcrypt.hash(pw, 10); //salt 10자리
 
         // 회원가입 insert query
-        await db.query('insert into user (id,name,pw) value(?,?,?)' , [id,name,hashedPw]);
+        await db.query('insert into user (id, name, pw, email, birthday, gender) value(?,?,?,?,?,?)' , [id,name,hashedPw,email || null, birthday || null, gender || null]);
         res.json({success: true, message: '회원가입되었습니다!'});
     } catch (err) {
         console.error(err);
@@ -59,7 +59,7 @@ router.post('/check-id', async (req, res) => {
   const { id } = req.body;
 
   try {
-    // 아이디 존재여부부
+    // 아이디 존재여부
     const [rows] = await db.query('SELECT * FROM user WHERE id = ?', [id]);
     if (rows.length > 0) {
       return res.json({ available: false }); // 이미 존재
