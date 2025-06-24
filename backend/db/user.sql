@@ -4,14 +4,14 @@
 -- c -> program file -> mysql -> mysql server 8.0 -> bin = cmd ->
 -- mysql -u root -p -> pw입력후 진입입
 
-create table user (
-    idx int auto_increment,
-    id varchar(255) not null unique,
-    name varchar(255) not null,
-    pw varchar(255) not null,
-    email varchar(255) not null,
-    birthday date,
-    gender varchar(10),
-    created_at datetime not null default current_timestamp,
-    primary key(idx)
+CREATE TABLE user (
+    idx INT AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    pw VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    birthday DATE,
+    gender VARCHAR(10),
+    role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
