@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PageAlert from "../components/alert/pageAlert";
 
 const PermitRoute = ({ children }) => {
