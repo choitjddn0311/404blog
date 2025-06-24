@@ -16,7 +16,7 @@ const PORT = 5000;
 // 10.0.0.32에서 cors 허용
 // 나중에 이건 자세히 봐야할듯
 app.use(cors({
-  origin: 'http://10.0.0.32:3000',
+  origin: `${process.env.REACT_APP_FRONT_URL}`,
   credentials: true
 }));
 app.use(express.json());
