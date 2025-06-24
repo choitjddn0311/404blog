@@ -6,8 +6,12 @@
 
 create table user (
     idx int auto_increment,
-    id varchar(255) not null,
+    id varchar(255) not null unique,
     name varchar(255) not null,
     pw varchar(255) not null,
-    primary key(idx, id)
+    email varchar(255) not null,
+    birthday date,
+    gender varchar(10),
+    created_at datetime not null default current_timestamp,
+    primary key(idx)
 );
