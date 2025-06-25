@@ -68,7 +68,7 @@ const Mypage = () => {
                             <p>성별: {getGenderText(user.gender)}</p>
                         </>
                     ) : (
-                        <p>정보가져오는중</p>
+                        <p>오류가 발생했습니다.</p>
                     )}
                 </Container>
             </Main>
