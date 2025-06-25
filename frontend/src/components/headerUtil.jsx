@@ -345,7 +345,9 @@ const HeaderUtil = () => {
       showCustomAlert("서버 에러: " + err.message);
     }
 
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    },3000);  
   };
 
   const handleLogout = () => {
