@@ -15,7 +15,8 @@ const Container = styled.div`
     width: ${container}px;
     min-height: 100px;
     background: #aaa;
-`
+`;
+
 
 const Mypage = () => {
     const [user, setUser] = useState(null);
@@ -59,13 +60,14 @@ const Mypage = () => {
                 <Container>
                     {user? (
                         <>
-                            <h1>마이페이지</h1>
-                            <p>아아디 {user.id}</p>
-                            <p>이메일 {user.email}</p>
+                            {/* <h1>마이페이지</h1> */}
+                            {/* <p>아아디 {user.id}</p> */}
+                            {/* <p>이메일 {user.email}</p> */}
                             {/* moment.js 를 활용한 datetime format */}
-                            <p>생년월일: {moment(user.birthday).format('YYYY년 MM월 DD일')}</p>
+                            {/* <p>생년월일: {moment(user.birthday).format('YYYY년 MM월 DD일')}</p> */}
                             {/* 성별 출력 */}
-                            <p>성별: {getGenderText(user.gender)}</p>
+                            {/* <p>성별: {getGenderText(user.gender)}</p> */}
+
                         </>
                     ) : (
                         <p>오류가 발생했습니다.</p>
