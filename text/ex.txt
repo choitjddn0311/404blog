@@ -10,5 +10,11 @@ kakao OAuth 참고
 https://songsong.dev/entry/%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8-%EB%B3%B4%EC%A7%80-%EC%95%8A%EA%B8%B0-%ED%8C%9D%EC%97%85-%EB%A7%8C%EB%93%A4%EA%B8%B0
 오늘 하루동안 보지않기 참고
 
+만약에
+.. oauth를 구현하게 되면 로직
+-> oauth를 통해 로그인을 시도함 -> 토큰이 넘어오면 db에서 name or email or phonenumber 등을 사용해 db랑 조회하고 만약에 같은 정보가 없다면 -> alert('회원가입해야함.')
+회원정보가 있다면 -> alert('오 ㅎㅇ 통합연결됨 ')
 
+즉 oauth 랑 user table이랑 따로 만들어서 관리해야할듯
 
+내 생각
