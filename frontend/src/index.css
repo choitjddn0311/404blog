@@ -9,8 +9,12 @@ textarea {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  padding: 3px 6px;
+  border: none;
+	border-radius: 3px;
+	background-color: #e9ecef;
+	font-size: 1rem;
+  font-family: 'freesentation' , sans-serif;
 }
 
 @font-face {

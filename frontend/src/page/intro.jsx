@@ -1,8 +1,14 @@
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/a11y-dark.css";
+
 const Intro = () => {
+    const markdownText = `# h1 \n *만이러ㅣㅏㄴㅇㄹ* \n \`const app = use.get()\`하는거노?`
     return (
         <>
-            <h1>개발자를 꿈꿉니다</h1>
-            <h1>최성우</h1>
+            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{markdownText}
+            </ReactMarkdown>
         </>
     )   
 }
