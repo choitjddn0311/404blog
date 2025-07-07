@@ -41,8 +41,8 @@ const Mypage = () => {
     },[]);
 
     // db에서 넘어오는거 case문으로 한글로 출력해줌
-    const getGenderText = (code) => {
-        switch(code) {
+    const getGenderKorean = (gender) => {
+        switch(gender) {
             case 'male':
                 return '남성';
             case 'female':
@@ -61,12 +61,12 @@ const Mypage = () => {
                     {user? (
                         <>
                             {/* <h1>마이페이지</h1> */}
-                            {/* <p>아아디 {user.id}</p> */}
-                            {/* <p>이메일 {user.email}</p> */}
+                            <p>아아디 {user.id}</p>
+                            <p>이메일 {user.email}</p>
                             {/* moment.js 를 활용한 datetime format */}
-                            {/* <p>생년월일: {moment(user.birthday).format('YYYY년 MM월 DD일')}</p> */}
+                            <p>생년월일: {moment(user.birthday).format('YYYY년 MM월 DD일')}</p>
                             {/* 성별 출력 */}
-                            {/* <p>성별: {getGenderText(user.gender)}</p> */}
+                            <p>성별: {getGenderKorean(user.gender)}</p>
 
                         </>
                     ) : (
