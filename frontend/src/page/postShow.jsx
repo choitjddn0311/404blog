@@ -84,6 +84,7 @@ const PostContents = styled.section`
 
     & > p {
         font-size: 20px;
+        white-space: pre-line;
     }
 `
 
