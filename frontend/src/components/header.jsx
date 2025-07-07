@@ -132,7 +132,7 @@ const Header = () => {
 
                         {isAdmin && (
                             <Gnb $active={currentPath === "/admin"}>
-                                <Link to="/admin">관리자</Link>
+                                <Link to="http://10.0.0.36:3001/">관리자</Link>
                             </Gnb>
                         )}
                         {currentPath === '/' && (
