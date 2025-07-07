@@ -14,8 +14,29 @@ const Main = styled.main`
 const Container = styled.div`
     width: ${container}px;
     min-height: 100px;
-    background: #aaa;
 `;
+
+const Table = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #ccc;
+`;
+
+const Tr = styled.tr`
+    border: 1px solid #ccc;
+    height: 50px;
+`
+const Th = styled.th`
+    background: #f5f5f5;
+    width: 150px;
+`
+
+const Td = styled.td`
+    background: #fff;
+    text-decoration: underline;
+    padding-left: 10px;
+`
 
 
 const Mypage = () => {
@@ -60,14 +81,33 @@ const Mypage = () => {
                 <Container>
                     {user? (
                         <>
-                            {/* <h1>마이페이지</h1> */}
-                            <p>아아디 {user.id}</p>
-                            <p>이메일 {user.email}</p>
-                            {/* moment.js 를 활용한 datetime format */}
-                            <p>생년월일: {moment(user.birthday).format('YYYY년 MM월 DD일')}</p>
-                            {/* 성별 출력 */}
-                            <p>성별: {getGenderKorean(user.gender)}</p>
-
+                            <h1>내 정보</h1>
+                            <Table>
+                                <Tr>
+                                    <Th>아이디</Th>
+                                    <Td><input type="text" value={user.id} readOnly/></Td>
+                                </Tr>
+                                <Tr>
+                                    <Th>이름</Th>
+                                    <Td>{user.name}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Th>이메일</Th>
+                                    <Td>{user.email}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Th>성별</Th>
+                                    <Td>{getGenderKorean(user.gender)}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Th>생년월일</Th>
+                                    <Td>{moment(user.birthday).format('YYYY-MM-DD')}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Th>가입일</Th>
+                                    <Td>{moment(user.created_at).format('YYYY-MM-DD')}</Td>
+                                </Tr>
+                            </Table>
                         </>
                     ) : (
                         <p>오류가 발생했습니다.</p>
