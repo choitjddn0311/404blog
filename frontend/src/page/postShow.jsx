@@ -2,6 +2,8 @@ import React, { useEffect, useState} from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { LuClock5 } from "react-icons/lu";
+import moment from "moment";
 
 const container = 1400;
 
@@ -56,6 +58,12 @@ const PostAbout = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    & > p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
     & > div {
         display: flex;
@@ -162,18 +170,13 @@ const PostShow = () => {
         )
     }
 
-    const date = new Date(post.created_at);
-    const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
-
     return (
         <Main>
             <Container>
                 <PostTitle>
                     <h1>{post.title}</h1>
                     <PostAbout>
-                        {/* 좀더 쉬운방법이 있지않을까... */}
-                        {/* 아 moment js */}
-                        <p>{koreanTime.toISOString().slice(0,4)}년 {koreanTime.toISOString().slice(5,7)}월 {koreanTime.toISOString().slice(8,10)}일 {koreanTime.toISOString().slice(11,13)}시 {koreanTime.toISOString().slice(14,16)}분</p>
+                        <p><LuClock5 />{moment(post.created_at).format('YYYY.MM.DD')}</p>
                         <div>
                             <div>{post.name}</div>
                             <p><span>{post.id}</span></p>
