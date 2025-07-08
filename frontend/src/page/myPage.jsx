@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import moment from 'moment';
+import { MdEdit } from "react-icons/md";
 
 const container = 1400;
 
@@ -13,31 +14,124 @@ const Main = styled.main`
 
 const Container = styled.div`
     width: ${container}px;
-    min-height: 100px;
+    // height: 90vh;
 `;
 
-const Table = styled.table`
+const Notice = styled.div`
     width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border: 1px solid #ccc;
+    height: 50px;
+    align-content: center;
+    text-align: end;
+    
+    &  sup {
+        color: red;
+    }
+`
+
+const Inner = styled.div`
+    width: 100%;
+    height: 90vh;
+    display: flex;
+`
+
+const InputArea = styled.div`
+    width: 70%;
+    height: 100%;
+    // background: red;
+    padding: 50px 10px;
 `;
 
-const Tr = styled.tr`
-    border: 1px solid #ccc;
+const ProfileContainer = styled.div`
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 50px 0;
+`
+
+const Profile = styled.div`
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid #aaa;
+    background: #eee;
+    color: #111;
+    text-align: center;
+    align-content: center;
+`;
+
+const InputInner = styled.div`
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+`;
+
+const InputContainer = styled.div`
+    width: 100%;
     height: 50px;
-`
-const Th = styled.th`
-    background: #f5f5f5;
-    width: 150px;
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+`;
+
+const Button = styled.button`
+    width: 100px;
+    height: 100%;
+    background: transparents;
+    color: #111;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: start;
+    color: #aaa;
+
+    &:hover {
+        color: #111;
+    }
 `
 
-const Td = styled.td`
+const Input = styled.input`
+    width: 200px;
+    height: 50px;
     background: #fff;
-    text-decoration: underline;
-    padding-left: 10px;
-`
+    border: 1px solid #ddd;
+    color: #111;
+    outline: none;
+    padding-left: 20px;
+    border-radius: 10px;
 
+    &[type=radio] {
+        width: 20px;
+        height: 20px;
+    }
+    
+    &[type=date] {
+        padding-right: 20px;
+    }
+`;
+
+const EmailInput = styled.input`
+    width: 350px;
+    height: 50px;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #111;
+    outline: none;
+    padding-left: 20px;
+    border-radius: 10px;
+`;
+
+const GenderInner = styled.div`
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+`
 
 const Mypage = () => {
     const [user, setUser] = useState(null);
@@ -49,7 +143,6 @@ const Mypage = () => {
 
         if(!id) return;
 
-        // 여기서 백엔드에 넘김
         axios.post(`${process.env.REACT_APP_API_URL}/user/info` , {id})
             .then(res => {
                 if(res.data.success) {
@@ -82,7 +175,63 @@ const Mypage = () => {
                     {user? (
                         <>
                             <h1>내 정보</h1>
-                            <Table>
+                            <hr />
+                            <Notice>
+                                <p><sup>*</sup>정보를 수정하려면 수정버튼을 클릭 후 수정해주시기 바랍니다.<sup>*</sup></p>
+                            </Notice>
+                            <Inner>
+                                <ProfileContainer>
+                                    <Profile></Profile>
+                                </ProfileContainer>
+                                <InputArea>
+                                    <InputInner>
+                                        <h3>내 아이디</h3>
+                                        <InputContainer>
+                                            <Input type="text" value={user.id} />
+                                            <Button>수정<MdEdit /></Button>
+                                        </InputContainer>
+                                    </InputInner>
+                                    <InputInner>
+                                        <h3>내 이름</h3>
+                                        <InputContainer>
+                                            <Input type="text" value={user.name} />
+                                            <Button>수정<MdEdit /></Button>
+                                        </InputContainer>
+                                    </InputInner>
+                                    <InputInner>
+                                        <h3>이메일</h3>
+                                        <InputContainer>
+                                            <EmailInput type="email" value={user.email}/>
+                                            <Button>수정<MdEdit /></Button>
+                                        </InputContainer>
+                                    </InputInner>
+                                    <InputInner>
+                                        <h3>성별</h3>
+                                        <InputContainer>
+                                            <GenderInner>
+                                                <Input type="radio" value='male' name='gender' checked={user.gender === 'male'}/> <p>남성</p>    
+                                            </GenderInner>
+                                            <GenderInner>
+                                                <Input type="radio" value='female' name='gender' checked={user.gender === 'female'} /> <p>여성</p>    
+                                            </GenderInner>
+                                            <GenderInner>
+                                                <Input type="radio" value='other' name='gender' checked={user.gender === 'other'} /> <p>기타</p>    
+                                            </GenderInner>
+                                            <GenderInner>
+                                                <Input type="radio" value='' name='gender' checked={!user.gender ||user.gender === ''} /> <p>밝히고싶지않음</p>
+                                            </GenderInner>
+                                        </InputContainer>
+                                    </InputInner>
+                                    <InputInner>
+                                        <h3>생년월일</h3>
+                                        <InputContainer>
+                                            <Input type="date" value={moment(user.birthday).format('YYYY-MM-DD')} />
+                                            <Button>수정<MdEdit /></Button>
+                                        </InputContainer>
+                                    </InputInner>
+                                </InputArea>
+                            </Inner>
+                            {/* <Table>
                                 <Tr>
                                     <Th>아이디</Th>
                                     <Td><input type="text" value={user.id} readOnly/></Td>
@@ -107,7 +256,7 @@ const Mypage = () => {
                                     <Th>가입일</Th>
                                     <Td>{moment(user.created_at).format('YYYY-MM-DD')}</Td>
                                 </Tr>
-                            </Table>
+                            </Table> */}
                         </>
                     ) : (
                         <p>오류가 발생했습니다.</p>

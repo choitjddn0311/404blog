@@ -8,6 +8,10 @@ textarea {
   font-family: 'freesentation' !important;
 }
 
+input[type=date] {
+  font-family: 'freesentation' !important;
+}
+
 code {
   padding: 3px 6px;
   border: none;
