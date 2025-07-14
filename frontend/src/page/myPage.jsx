@@ -17,6 +17,13 @@ const Container = styled.div`
     // height: 90vh;
 `;
 
+const DivideLine = styled.div`
+    width: 100%;
+    height: 3px;
+    background: #333;
+    margin: 20px 0;
+`
+
 const Notice = styled.div`
     width: 100%;
     height: 50px;
@@ -30,7 +37,7 @@ const Notice = styled.div`
 
 const Inner = styled.div`
     width: 100%;
-    height: 90vh;
+    height: 80vh;
     display: flex;
 `
 
@@ -75,6 +82,10 @@ const InputContainer = styled.div`
     display: flex;
     justify-content: start;
     gap: 20px;
+
+    & > p {
+        padding: 20px 0;
+    }
 `;
 
 const Button = styled.button`
@@ -131,6 +142,29 @@ const GenderInner = styled.div`
     justify-content: start;
     align-items: center;
     gap: 10px;
+`;
+
+const QuitUserContainer = styled.div`
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+`;
+
+const QuitButton = styled.button`
+    width: 200px;
+    height: 50%;
+    border: red 1px solid;
+    background: #fff;
+    color: red;
+    outline: none;
+    border-radius: 10px;
+
+    &:hover {
+        background: red;
+        color: #fff;
+    }
 `
 
 const Mypage = () => {
@@ -168,6 +202,33 @@ const Mypage = () => {
         }
     }
 
+    const handleQuit = async () => {
+        const id = localStorage.getItem('userId');
+        if(!id) {
+            alert("뭘 가져왔노;;");
+            return;
+        }
+        const checkQuit = window.confirm("정말 회원 탈퇴를 진행하시겠습니까? 이 진행과정을 되돌릴 수 없습니다.");
+        if(!checkQuit) return;
+
+        try {
+            const res = await axios.delete(`${process.env.REACT_APP_API_URL}/user/delete` , {
+                data: { id },
+            });
+
+            if(res.data.success) {
+                alert('회원 탈퇴 완료');
+                localStorage.removeItem('userId');
+                window.location.href = '/';
+            } else {
+                alert('회원탈퇴 실패')
+            }
+        } catch(err) {
+            console.error('회원가입중 오류:', err);
+            alert('회원탈퇴중 오류')
+        }
+    };
+
     return (
         <>
             <Main>
@@ -175,9 +236,9 @@ const Mypage = () => {
                     {user? (
                         <>
                             <h1>내 정보</h1>
-                            <hr />
+                            <DivideLine />
                             <Notice>
-                                <p><sup>*</sup>정보를 수정하려면 수정버튼을 클릭 후 수정해주시기 바랍니다.<sup>*</sup></p>
+                                <p><sup>*</sup> 정보를 수정하려면 수정버튼을 클릭 후 수정해주시기 바랍니다. <sup>*</sup></p>
                             </Notice>
                             <Inner>
                                 <ProfileContainer>
@@ -229,8 +290,17 @@ const Mypage = () => {
                                             <Button>수정<MdEdit /></Button>
                                         </InputContainer>
                                     </InputInner>
+                                    <InputInner>
+                                        <h3>가입일자</h3>
+                                        <InputContainer>
+                                            <p>{moment(user.created_at).format('YYYY년 MM월 DD일')}</p>
+                                        </InputContainer>
+                                    </InputInner>
                                 </InputArea>
                             </Inner>
+                            <QuitUserContainer>
+                                <QuitButton onClick={handleQuit}>회원 탈퇴</QuitButton>
+                            </QuitUserContainer>
                             {/* <Table>
                                 <Tr>
                                     <Th>아이디</Th>
