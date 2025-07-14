@@ -536,7 +536,7 @@ const HeaderUtil = () => {
               <SignUpRight>
                 <SignUpContainer>
                 <SignUpTitle>
-                  이메일
+                  이메일 <sup style={{ color: "red" }}>*</sup>
                 </SignUpTitle>
                 <SignUpInputContainer>
                   <input
