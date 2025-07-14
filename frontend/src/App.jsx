@@ -10,7 +10,6 @@ import Footer from "./components/footer";
 import GlobalStyle from "./style/globalStyle";
 import PermitRoute from "./page/permit";
 import PostShow from "./page/postShow";
-import AdminOnly from "./page/adminOnly";
 
 
 // 프론트 라우터 설정
@@ -27,7 +26,6 @@ const App = () => {
           <Route path="/post/:title" element={<PostShow/>}></Route>
           <Route path="/intro" element={<Intro />}></Route>
           <Route path="/mypage" element={<PermitRoute><Mypage /></PermitRoute>}></Route>
-          <Route path="/admin" element={<AdminOnly/>}></Route>
         </Routes>
         <Footer/>
     </BrowserRouter>
