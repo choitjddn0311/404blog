@@ -284,7 +284,7 @@ const HeaderUtil = () => {
     email: "",
     birthday: "",
     // default gender 
-    gender: "male"
+    gender: ""
   });
 
   useEffect(() => {
@@ -416,7 +416,7 @@ const HeaderUtil = () => {
         setIsLoggedIn(false);
         setUserId();
         closeModal();
-        setSignUpData({ id: "", name: "", pw: "", pw2: "", email: "", birthday: "", gender: "male" });
+        setSignUpData({ id: "", name: "", pw: "", pw2: "", email: "", birthday: "", gender: "" });
       } else {
         showCustomAlert("회원가입 실패: " + res.data.message);
       }
@@ -564,10 +564,10 @@ const HeaderUtil = () => {
                 </SignUpTitle>
                 <SignUpInputContainer>
                     <GenderSelect name="gender" id="gender" value={signUpData.gender} onChange={handleChange}>
+                      <option value="">밝히고싶지 않음</option>
                       <option value="male">남성</option>
                       <option value="female">여성</option>
                       <option value="other">기타</option>
-                      <option value="">밝히고싶지 않음</option>
                     </GenderSelect>
                   </SignUpInputContainer>
               </SignUpContainer>
