@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 const uploadRoutes = require('./routes/upload');
 const mypageRoutes = require('./routes/mypage');
+const userRoutes = require('./routes/user');
 
 const app = express();
 const PORT = 5000;
@@ -26,6 +27,7 @@ app.use('/api' , authRoutes);
 app.use('/api/posts' , postRoutes);
 app.use('/api/upload' , uploadRoutes);
 app.use('/user' , mypageRoutes);
+app.use('/user/delete' , userRoutes);
 
 app.listen(PORT , '0.0.0.0', () => {
   // console.log(`서버 포트 ${PORT}여기서 돌아가는중`);
