@@ -18,7 +18,7 @@ const Container = styled.div`
     border-top: 5px solid #111;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: ${props => props.hasManageBtn ? '0px' : '50px'};
 `;
 
 const OtherCon = styled.div`
@@ -124,22 +124,25 @@ const Loader = styled.div`
     }
 `;
 
-const PostActions = styled.div`
+const PostManageBtnContainer = styled.div`
+    width: 100%;
+    height: 50px;
     display: flex;
-    gap: 10px;
-
+    justify-content: end;
+    align-items: center;
+    gap: 30px;
+    
     & > button {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        background: #111;
-        color: #fff;
-        cursor: pointer;
-        font-size: 14px;
+        height: 100%;
+        background: transparents;
+        font-size: 17px;
+        text-decoration: underline;
+        color: #aaa;
     }
-
-    & > button:hover {
-        background: #333;
+    
+    & > button:hover,
+    & > button:active {
+        color: #111;
     }
 `;
 
@@ -220,7 +223,7 @@ const PostShow = () => {
 
     return (
         <Main>
-            <Container>
+            <Container hasManageBtn={isMyPost}>
                 <PostTitle>
                     <h1>{post.title}</h1>
                     <PostAbout>
@@ -230,14 +233,15 @@ const PostShow = () => {
                             <p><span>{post.id}</span></p>
                         </div>
                     </PostAbout>
-                    {isMyPost && (
-                        <PostActions>
+                </PostTitle>
+                {isMyPost && (
+                        <PostManageBtnContainer>
                             <button onClick={handleEdit}>수정</button>
                             <button onClick={handleDelete}>삭제</button>
-                        </PostActions>
+                        </PostManageBtnContainer>
                     )}
-                </PostTitle>
                 <PostContents>
+                    
                     <p>{post.content}</p>
                 </PostContents>
             </Container>
