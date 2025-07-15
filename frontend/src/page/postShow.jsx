@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LuClock5 } from "react-icons/lu";
 import moment from "moment";
@@ -122,19 +122,45 @@ const Loader = styled.div`
         50%  {background-position:0    20px,10px 10px,20px 0   } 
         100% {background-position:20px 20px,10px 10px,0    0   } 
     }
-`
+`;
+
+const PostActions = styled.div`
+    display: flex;
+    gap: 10px;
+
+    & > button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        background: #111;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    & > button:hover {
+        background: #333;
+    }
+`;
+
 
 const PostShow = () => {
     const {title} = useParams();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isMyPost, setIsMypost] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
       const fetchPost = async () => {
         try {
           const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts/title/${encodeURIComponent(title)}`);
           setPost(res.data);
+          const userId = localStorage.getItem('userId');
+          if(userId && userId === res.data.id) {
+            setIsMypost(true);
+          }
         } catch (err) {
           setError('');
         } finally {
@@ -143,6 +169,26 @@ const PostShow = () => {
       };
       fetchPost();
     }, [title]);
+
+    const handleEdit = () => {
+        navigate('/write' , {state: {title: post.title, content: post.content, idx: post.idx}});
+    };
+
+    const handleDelete = async () => {
+        if (!window.confirm("이 게시글을 삭제하시겠습니까?")) return;
+        try {
+            const userId = localStorage.getItem('userId');
+            await axios.delete(`${process.env.REACT_APP_API_URL}/manage/delete/${post.title}`, {
+                data: {userId}
+            });
+            alert("삭제되었습니다.");
+            window.location.href = "/";
+        } catch (err) {
+            console.error(err);
+            alert("삭제 중 오류가 발생했습니다.");
+        }
+    };
+
 
     if(loading) {
         return (
@@ -184,6 +230,12 @@ const PostShow = () => {
                             <p><span>{post.id}</span></p>
                         </div>
                     </PostAbout>
+                    {isMyPost && (
+                        <PostActions>
+                            <button onClick={handleEdit}>수정</button>
+                            <button onClick={handleDelete}>삭제</button>
+                        </PostActions>
+                    )}
                 </PostTitle>
                 <PostContents>
                     <p>{post.content}</p>
