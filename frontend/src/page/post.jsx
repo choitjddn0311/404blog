@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import moment from "moment";
 import {useAuth} from '../components/authContext';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 const containerSize = 1400;
 const mainColor = '#111';
@@ -190,12 +190,22 @@ const TemporailyListItem = styled.div`
 `;
 
 const Post = () => {
+    const routerLocation = useLocation();
     const {user} = useAuth();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [temporailyList, setTemporailyList] = useState([]);
     const [showTemporailyList, setShowTemporailyList] = useState(false);
+    const [idx,setIdx] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (routerLocation.state) {
+            setTitle(routerLocation.state.title || "");
+            setContent(routerLocation.state.content || "");
+            setIdx(routerLocation.state.idx || null);
+        }
+    }, [routerLocation.state]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
