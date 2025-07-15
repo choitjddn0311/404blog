@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from "rehype-highlight";
-import Profile from "../assets/images/my/profile.png"
+import Profile from "../assets/images/my/profile.jpg"
 import styled from 'styled-components';
 
 const Main = styled.main`
