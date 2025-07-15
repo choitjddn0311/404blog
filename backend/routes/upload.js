@@ -48,7 +48,8 @@ router.get('/temporaily_list/:id' , async(req,res) => {
         console.error(err);
         res.status(500).json({success: false, message: '임시저장본 불러오기 실패'});
     }
-})
+});
+
 
 
 
