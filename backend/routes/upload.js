@@ -23,6 +23,33 @@ router.post('/' , async(req,res) => {
         console.error(err);
         res.status(500).send("서버오류")
     }
+});
+
+router.post('/temporaily_save' , async(req,res) => {
+    const {id,title,content} = req.body;
+    try {
+        await db.query(
+            'insert into temporaily_post (id,title,content) values (?,?,?)',
+            [id,title,content]
+        );
+        res.json({success: true})
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({success: false, message: '임시저장 실패'});
+    }
 })
+
+router.get('/temporaily_list/:id' , async(req,res) => {
+    const { id } = req.params;
+    try {
+        const [rows] = await db.query('select * from temporaily_post where id = ? order by created_at desc' , [id]);
+        res.json({success: true, data: rows});
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({success: false, message: '임시저장본 불러오기 실패'});
+    }
+})
+
+
 
 module.exports = router;

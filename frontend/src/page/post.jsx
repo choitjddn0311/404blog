@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
+import moment from "moment";
 import {useAuth} from '../components/authContext';
 import { useNavigate } from "react-router-dom";
 
@@ -81,8 +82,10 @@ const FromTopRight = styled.div`
     width: 20%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: end;
     align-items: end;
+    position: relative;
 `;
 
 const TemporailyPostBtn = styled.div`
@@ -157,12 +160,41 @@ const FormSubmitBtn = styled.input`
     }
 `;
 
-// 설정된 props는 임시저장본을 불러올때 사용됨
-// 자세히 모르겠다;;
+const TemporailyListContainer = styled.div`
+    width: 100%;
+    height: 200px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100px;
+
+`;
+
+const TemporailyListItem = styled.div`
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+
+    &:hover {
+        background: #f0f0f0;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+`;
+
 const Post = () => {
     const {user} = useAuth();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [temporailyList, setTemporailyList] = useState([]);
+    const [showTemporailyList, setShowTemporailyList] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -190,11 +222,45 @@ const Post = () => {
     }
 
 
+    const handleTemporailySave = async () => {
+        if(!title || !content) {
+            alert('내용이 비어있습니다.');
+            return;
+        }
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/upload/temporaily_save` , {
+                id: user.id,
+                title,
+                content,
+            });
+            alert("임시저장되었습니다");
+        } catch(err) {
+            console.error(err);
+            alert('임시저장에 실패했습니다')
+        }
+    }
+
+    const handleTemporailyList = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/upload/temporaily_list/${user.id}`);
+            if(res.data.success) {
+                setTemporailyList(res.data.data);
+                setShowTemporailyList(true);
+            } else {
+                alert("글 불러오기에 실패했습니다")
+            }
+        } catch(err) {
+            console.error(err);
+            alert("글 불러오기에 실패했습니다")
+        }
+    }
+
+    
+
+
     // 현재 날짜 출력하기
     const today = new Date();
-    // month에 1 더하는 이유 => 1월 부터 12월이 0~11로 값이 있어 1~12월로 출력하려면 1을 더해야한다
-    // 생각보다 간단함
-    const formatDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
     return(
         <>
             <Main>
@@ -203,7 +269,7 @@ const Post = () => {
                         <FormInner>
                             <FromTop>
                                 <FromTopLeft>
-                                    <h3>{formatDate}</h3>
+                                    <h3>{moment(today).format('YYYY년 MM월 DD일')}</h3>
                                     <TitleInput 
                                         name="title" 
                                         placeholder="제목을 입력해주세요." 
@@ -222,7 +288,27 @@ const Post = () => {
                                         />
                                 </FromTopLeft>
                                 <FromTopRight>
-                                    <TemporailyPostBtn><h3>임시저장본 불러오기</h3></TemporailyPostBtn>
+                                    <TemporailyPostBtn onClick={handleTemporailyList}><h3>임시저장본 불러오기</h3></TemporailyPostBtn>
+                                    {showTemporailyList && temporailyList.length > 0 && (
+                                    <TemporailyListContainer>
+                                        {/* 스타일 조정하기 */}
+                                        {temporailyList.map((item) => (
+                                            <TemporailyListItem
+                                                key={item.idx}
+                                                onClick={() => {
+                                                    setTitle(item.title);
+                                                    setContent(item.content);
+                                                    setShowTemporailyList(false);
+                                                }}
+                                            >
+                                                <strong>{item.title}</strong>
+                                                <p style={{ margin: 0, fontSize: '14px', color: '#555' }}>
+                                                    {item.content.slice(0,20)}...
+                                                </p>
+                                            </TemporailyListItem>
+                                        ))}
+                                    </TemporailyListContainer>
+                                )}
                                 </FromTopRight>
                             </FromTop>
                             <FormMain>
@@ -235,7 +321,7 @@ const Post = () => {
                             </FormMain>
                         </FormInner>
                         <FormSubmitCon>
-                            <FromTemporailySaveBtn type="button" value="임시저장"/>
+                            <FromTemporailySaveBtn type="button" value="임시저장" onClick={handleTemporailySave}/>
                             <FormSubmitBtn type="submit" value="글 올리기"/>
                         </FormSubmitCon>
                     </Form>
