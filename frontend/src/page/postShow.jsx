@@ -89,10 +89,12 @@ const PostContents = styled.section`
     width: 100%;
     min-height: 400px;
     padding-bottom: 50px;
+    overflow-x: hidden;
 
     & > p {
         font-size: 20px;
         white-space: pre-line;
+        word-break: break-all;
     }
 `
 
