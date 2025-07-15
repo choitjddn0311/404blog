@@ -87,8 +87,11 @@ const FooterSns = styled.ul`
 
 const Copyright = styled.div`
     width: 100%;
+    height: 70px;
     display: flex;
-    align-items: end;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
 
     & > p {
         color: #aaa;
@@ -147,7 +150,8 @@ const Footer = () => {
                             </FooterSns>
                         </InnerLeftTop>
                         <Copyright>
-                            <p>&copy;2025. choitjddn31 All rights reserved.</p>
+                            <p>&copy;2025. choitjddn31 All rights reserved.</p> <br />
+                            <p>대표: 최성우</p>
                         </Copyright>
                     </InnerLeft>
                     <InnerRight>
