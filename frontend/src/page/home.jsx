@@ -59,6 +59,22 @@ const TabItem = styled.li`
     &:hover::before {
       height: 3px;
     }
+`;
+
+const ErrorText = styled.div`
+  width: ${containerSize}px;
+  height: 50px;
+  text-align: start;
+  align-content: center;
+  font-size: 20px;
+  
+  & > sup {
+    color: red;
+  }
+
+  & > span {
+    font-weight: bold;
+  }
 `
 
 const Container = styled.div`
@@ -76,7 +92,7 @@ const EmptyPostText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const [selectedTab, setSelectedTab] = useState('latest');
@@ -131,7 +147,10 @@ const Home = () => {
                     >
                         <h2><HiOutlineDocumentDuplicate /> 내 글</h2>
                     </TabItem>
-                </PostTab> 
+                </PostTab>
+                <ErrorText>
+                  <sup>*</sup> 현재 글 제목의 특수기호 또는 숫자를 넣으면 들어가지지 않는 이슈가 발생했습니다. <sup>*</sup>  
+                </ErrorText> 
                 <Container>
                     {posts.length === 0 ? (
                     <EmptyPostText>
