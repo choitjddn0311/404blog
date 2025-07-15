@@ -197,6 +197,7 @@ const Post = () => {
     const [temporailyList, setTemporailyList] = useState([]);
     const [showTemporailyList, setShowTemporailyList] = useState(false);
     const [idx,setIdx] = useState(null);
+    const [originalTitle, setOriginalTitle] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -204,6 +205,7 @@ const Post = () => {
             setTitle(routerLocation.state.title || "");
             setContent(routerLocation.state.content || "");
             setIdx(routerLocation.state.idx || null);
+            setOriginalTitle(routerLocation.state.title || "");
         }
     }, [routerLocation.state]);
 
@@ -214,21 +216,33 @@ const Post = () => {
         console.log(user);
 
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/upload` , {
-                id: user?.id,
-                title,
-                content,
-                post_text,
-            });
-            alert("글이 게시되었습니다.");
+            if(idx) {
+                await axios.patch(`${process.env.REACT_APP_API_URL}/manage/edit/${encodeURIComponent(originalTitle)}`, {
+                    userId: user?.id,
+                    newTitle: title,
+                    newContent: content
+                });
+                alert("게시글이 수정되었습니다");
+                navigate(`/post/${encodeURIComponent(title)}`);
+            } else {
+                await axios.post(`${process.env.REACT_APP_API_URL}/api/upload` , {
+                    id: user?.id,
+                    title,
+                    content,
+                    post_text,
+                });
+                alert("글이 게시되었습니다.");
+                navigate('/');
+            }
         } catch(err) {
             console.error(err);
             alert('글 게시 실패');
         }
-        
-        setTimeout(() => {
-            navigate('/');
-        },1000)
+        if(!idx) {
+            setTimeout(() => {
+                navigate('/')
+            },1000)
+        }
     }
 
 
@@ -332,7 +346,7 @@ const Post = () => {
                         </FormInner>
                         <FormSubmitCon>
                             <FromTemporailySaveBtn type="button" value="임시저장" onClick={handleTemporailySave}/>
-                            <FormSubmitBtn type="submit" value="글 올리기"/>
+                            <FormSubmitBtn type="submit" value={idx? '글 수정하기' : '글 올리기'}/>
                         </FormSubmitCon>
                     </Form>
                 </Container>
