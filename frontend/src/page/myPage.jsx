@@ -169,7 +169,7 @@ const QuitButton = styled.button`
 
 const Mypage = () => {
     const [user, setUser] = useState(null);
-
+ 
     useEffect(() => {
         // localstorge에서 id가져오고
         const id = localStorage.getItem('userId');
@@ -228,7 +228,6 @@ const Mypage = () => {
             alert('회원탈퇴중 오류')
         }
     };
-
     return (
         <>
             <Main>
@@ -239,6 +238,7 @@ const Mypage = () => {
                             <DivideLine />
                             <Notice>
                                 <p><sup>*</sup> 정보를 수정하려면 수정버튼을 클릭 후 수정해주시기 바랍니다. <sup>*</sup></p>
+                                <p><sup>*</sup> 아직 작동하지 않습니다. <sup>*</sup></p>
                             </Notice>
                             <Inner>
                                 <ProfileContainer>
@@ -301,32 +301,6 @@ const Mypage = () => {
                             <QuitUserContainer>
                                 <QuitButton onClick={handleQuit}>회원 탈퇴</QuitButton>
                             </QuitUserContainer>
-                            {/* <Table>
-                                <Tr>
-                                    <Th>아이디</Th>
-                                    <Td><input type="text" value={user.id} readOnly/></Td>
-                                </Tr>
-                                <Tr>
-                                    <Th>이름</Th>
-                                    <Td>{user.name}</Td>
-                                </Tr>
-                                <Tr>
-                                    <Th>이메일</Th>
-                                    <Td>{user.email}</Td>
-                                </Tr>
-                                <Tr>
-                                    <Th>성별</Th>
-                                    <Td>{getGenderKorean(user.gender)}</Td>
-                                </Tr>
-                                <Tr>
-                                    <Th>생년월일</Th>
-                                    <Td>{moment(user.birthday).format('YYYY-MM-DD')}</Td>
-                                </Tr>
-                                <Tr>
-                                    <Th>가입일</Th>
-                                    <Td>{moment(user.created_at).format('YYYY-MM-DD')}</Td>
-                                </Tr>
-                            </Table> */}
                         </>
                     ) : (
                         <p>오류가 발생했습니다.</p>
