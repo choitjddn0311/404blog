@@ -5,6 +5,7 @@ import PostCard from "../components/postCard/mainPost";
 import { GoDiscussionOutdated } from "react-icons/go";
 import { FaUserFriends } from "react-icons/fa";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
+import moment from 'moment'
 
 const containerSize = 1400;
 
@@ -158,16 +159,13 @@ const Home = () => {
                     </EmptyPostText>
                     ) : (
                         posts.map((post) => {
-                            // console.log("렌더링 post:" , post)
-                            const date = new Date(post.created_at);
-                            const koreanTime = new Date(date.getTime() + 9 * 60 * 60 * 1000);
                             return (
                               <PostCard
                                 key={post.idx}
                                 title={post.title}
                                 post_text={post.post_text}
                                 id={post.id}
-                                dateTime={`${koreanTime.toISOString().slice(0, 16).replace("T", " ")}`}
+                                dateTime={moment(post.created_at).format('YYYY-MM-DD hh:mm')}
                               />
                               );
                         })
