@@ -29,7 +29,7 @@ const Container = styled.div`
     }
 
     h1,h2,h3,h4,h5,h6 {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     h1 {
@@ -68,9 +68,10 @@ const MarkdownContainer = styled.div`
 `;
 
 const markdown = `
-# 개발과 사진을 좋아하는
-# 최성우입니다.\n
+# #개발 #사진 최성우입니다
 ## 좋아하는 일 하면서 살고싶습니다.
+
+> 사진과 개발을 접목시켜 저의 큰 꿈을 이뤄나가고싶습니다.
 
 |자격증 목록| 취득일자 |
 |---|---|
