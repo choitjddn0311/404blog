@@ -16,7 +16,8 @@ const PORT = 5000;
 // app.use(cors());
 
 // 10.0.0.32에서 cors 허용
-// 나중에 이건 자세히 봐야할듯
+// 나중에 이건 자세히 
+// 이게 인제 서버 ip 박아놓으면 됨 ㅇㅇ 개꿀
 app.use(cors({
   origin: `${process.env.REACT_APP_FRONT_URL}`,
   credentials: true
@@ -32,6 +33,5 @@ app.use('/user/delete' , userRoutes);
 app.use('/manage', deleteRoutes);
 
 app.listen(PORT , '0.0.0.0', () => {
-  // console.log(`서버 포트 ${PORT}여기서 돌아가는중`);
 });
 
